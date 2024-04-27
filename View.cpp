@@ -1,5 +1,3 @@
-//
-
 #include "View.h"
 #include "sstream"
 #include <iomanip>
@@ -34,6 +32,7 @@ string View::show() { //Need to update to float!
         } else ss << " ";
         xInd += scale;
     }
+    ss<<endl;
     // Add objects to field
     string out = ss.str();
     for (const auto &obj: objects) {

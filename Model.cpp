@@ -33,3 +33,15 @@ string Model::view() {
     return viewObj->show();
 }
 
+void Model::addShuttle(const string& name, const string& pilot, float x, float y) {
+    shuttles.emplace_back(make_shared<Shuttle>(name, pilot, x, y));
+    string subname;
+    if (name.length() < 2) {
+        subname = " " + name;
+    } else {
+        subname = name.substr(0, 2);
+    }
+    viewObj->setObject(subname, static_cast<int>(round(x)), static_cast<int>(round(y)));
+
+}
+

@@ -9,10 +9,15 @@ using namespace std;
 
 
 class Controller {
-    shared_ptr<Model> model;
-
 public:
+    Controller();
+
     void run(int argc, char *argv[]);
+
+private:
+    static shared_ptr<Model> model;
+
+    static void createWorld(int argc, char **argv);
 
 };
 

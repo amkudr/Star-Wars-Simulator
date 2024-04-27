@@ -79,6 +79,12 @@ build CMakeFiles/HWFinal.dir/View.cpp.obj: CXX_COMPILER__HWFinal_unscanned_Debug
   OBJECT_DIR = CMakeFiles\HWFinal.dir
   OBJECT_FILE_DIR = CMakeFiles\HWFinal.dir
 
+build CMakeFiles/HWFinal.dir/Shuttle.cpp.obj: CXX_COMPILER__HWFinal_unscanned_Debug C$:/Users/Anton/Documents/C$ lab/C++/ATOOP/HWFinal/Shuttle.cpp || cmake_object_order_depends_target_HWFinal
+  DEP_FILE = CMakeFiles\HWFinal.dir\Shuttle.cpp.obj.d
+  FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\HWFinal.dir
+  OBJECT_FILE_DIR = CMakeFiles\HWFinal.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target HWFinal
@@ -87,7 +93,7 @@ build CMakeFiles/HWFinal.dir/View.cpp.obj: CXX_COMPILER__HWFinal_unscanned_Debug
 #############################################
 # Link the executable HWFinal.exe
 
-build HWFinal.exe: CXX_EXECUTABLE_LINKER__HWFinal_Debug CMakeFiles/HWFinal.dir/main.cpp.obj CMakeFiles/HWFinal.dir/Controller.cpp.obj CMakeFiles/HWFinal.dir/Model.cpp.obj CMakeFiles/HWFinal.dir/SpaceStation.cpp.obj CMakeFiles/HWFinal.dir/View.cpp.obj
+build HWFinal.exe: CXX_EXECUTABLE_LINKER__HWFinal_Debug CMakeFiles/HWFinal.dir/main.cpp.obj CMakeFiles/HWFinal.dir/Controller.cpp.obj CMakeFiles/HWFinal.dir/Model.cpp.obj CMakeFiles/HWFinal.dir/SpaceStation.cpp.obj CMakeFiles/HWFinal.dir/View.cpp.obj CMakeFiles/HWFinal.dir/Shuttle.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\HWFinal.dir

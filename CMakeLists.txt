@@ -11,4 +11,6 @@ add_executable(HWFinal main.cpp
         SpaceStation.cpp
         SpaceStation.h
         View.cpp
-        View.h)
+        View.h
+        Shuttle.cpp
+        Shuttle.h)
