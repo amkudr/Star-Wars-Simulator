@@ -45,3 +45,40 @@ void Model::addShuttle(const string& name, const string& pilot, float x, float y
 
 }
 
+int Model::getShStatus(const string &name) {
+    for (auto &shuttle : shuttles) {
+        if (shuttle->getName() == name) {
+            return shuttle->getStatus();
+        }
+    }
+    return NOTEXIST;
+}
+
+void Model::setSupply(const string &name, const string &sourSt, const string &destSt) {
+    shared_ptr<SpaceStation> sourStPtr = nullptr;
+    shared_ptr<SpaceStation> destStPtr = nullptr;
+    for (auto &shuttle : shuttles) {
+        if (shuttle->getName() == name) {
+            for (auto &station : stations) {
+                if (station->getName() == sourSt) {
+                    sourStPtr = station;
+                }
+                else if (station->getName() == destSt) {
+                    destStPtr = station;
+                }
+            }
+            if(sourStPtr != nullptr && destStPtr != nullptr){
+                shuttle->setRoute(sourStPtr, destStPtr);
+                return;
+            }
+        }
+    }
+}
+
+void Model::go() {
+    for(auto &shuttle : shuttles) {
+        shuttle->go();
+        viewObj->setObject(shuttle->getName(), static_cast<int>(round(shuttle->getX())), static_cast<int>(round(shuttle->getY())));
+    }
+}
+

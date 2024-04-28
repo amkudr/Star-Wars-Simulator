@@ -14,6 +14,9 @@ public:
     static shared_ptr<Model> getInstance();
     void addStation(string name, float x, float y, int ContNum, int SupNum);
     void addShuttle(const string& name, const string& pilot, float x, float y);
+    int getShStatus(const string& name);
+    void setSupply(const string& name, const string& sourSt, const string& destSt);
+    void go();
     string view();
 
 private:
