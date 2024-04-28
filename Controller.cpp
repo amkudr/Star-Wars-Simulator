@@ -44,8 +44,6 @@ void Controller::run(int argc, char **argv) {
     int time = 0;
     while(true){
         cout<<"Time: "<<time<<" Enter command :";
-
-
         cin>>command;
         if(command=="exit"){
             break;
