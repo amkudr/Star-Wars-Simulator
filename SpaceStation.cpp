@@ -31,3 +31,7 @@ void SpaceStation::setY(float y_) {
 void SpaceStation::setContNum(int contNum) {
     ContNum = contNum;
 }
+
+void SpaceStation::go() {
+    ContNum = ContNum + SupNum;
+}

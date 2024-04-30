@@ -71,5 +71,8 @@ void Model::go() {
         viewObj->setObject(shuttle->getName(), static_cast<int>(round(shuttle->getX())), static_cast<int>(round(shuttle->getY())));
 //        std::cout << shuttle->getName() << "X = " << shuttle->getX()<<" Y = " << shuttle->getY() << std::endl;
     }
+    for(auto &station : stations) {
+        station->go();
+    }
 }
 

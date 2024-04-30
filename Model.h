@@ -16,7 +16,7 @@ public:
     void addShuttle(const string& name, const string& pilot, float x, float y);
     int getShStatus(const string& name);
     void setSupply(const string& name, const string& sourSt, const string& destSt);
-    void go();
+    void go(); //Update all objects in one hour
     string view();
 
 private:

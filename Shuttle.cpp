@@ -6,7 +6,7 @@
 #include <cmath>
 #include <iostream>
 
-void Shuttle::setRoute(shared_ptr<SpaceStation> sourSt_, shared_ptr<SpaceStation> ds_) {
+void Shuttle::setRoute(const shared_ptr<SpaceStation>& sourSt_, const shared_ptr<SpaceStation>& ds_) {
     routeQue.emplace(make_pair(sourSt_->getX(), sourSt_->getY()), sourSt_);
     routeQue.emplace(make_pair(ds_->getX(), ds_->getY()), ds_);
     status = MOVING;
@@ -64,8 +64,8 @@ int Shuttle::getStatus() const {
     return status;
 }
 
-void Shuttle::setStatus(int status) {
-    Shuttle::status = status;
+void Shuttle::setStatus(int status_) {
+    Shuttle::status = status_;
 }
 
 float Shuttle::getX() const {
@@ -92,7 +92,7 @@ float Shuttle::docking(float time) {
             leftTime = -1;
             status = MOVING;
             routeQue.pop();
-            std::cout<<" Fuck It was Hard but now i got "<<this->pUnit;
+            std::cout<<" Fuck It was Hard but now i got "<<this->pUnit<<std::endl;
             return abs(leftTime2);
         } else {
             leftTime = leftTime2;
@@ -121,6 +121,4 @@ float Shuttle::docking(float time) {
         status = STOPPED;
         return 0;
     }
-
-    return 0;
 }

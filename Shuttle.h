@@ -24,9 +24,9 @@ public:
 
     int getStatus() const;
 
-    void setStatus(int status);
+    void setStatus(int status_);
 
-    void setRoute(shared_ptr<SpaceStation> sourSt, shared_ptr<SpaceStation> ds_);
+    void setRoute(const shared_ptr<SpaceStation>& sourSt, const shared_ptr<SpaceStation>& ds_);
 
     float getX() const;
 

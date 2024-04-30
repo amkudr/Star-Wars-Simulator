@@ -20,6 +20,8 @@ public:
 
     int getContNum() const;
 
+    void go();
+
     int getSupNum() const;
 
     void setX(float x);
