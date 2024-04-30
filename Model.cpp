@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Model.h"
 #include "cmath"
 
@@ -18,15 +19,10 @@ Model::Model() {
     addStation("DS", 40, 10, 100000, 0);
 }
 
-void Model::addStation(string name, float x, float y, int ContNum, int SupNum) {
+void Model::addStation(const string& name, float x, float y, int ContNum, int SupNum) {
     stations.emplace_back(make_shared<SpaceStation>(name, x, y, ContNum, SupNum));
-    string subname;
-    if (name.length() < 2) {
-        subname = " " + name;
-    } else {
-        subname = name.substr(0, 2);
-    }
-    viewObj->setObject(subname, static_cast<int>(round(x)), static_cast<int>(round(y)));
+
+    viewObj->setObject(name, static_cast<int>(round(x)), static_cast<int>(round(y)));
 }
 
 string Model::view() {
@@ -35,13 +31,7 @@ string Model::view() {
 
 void Model::addShuttle(const string& name, const string& pilot, float x, float y) {
     shuttles.emplace_back(make_shared<Shuttle>(name, pilot, x, y));
-    string subname;
-    if (name.length() < 2) {
-        subname = " " + name;
-    } else {
-        subname = name.substr(0, 2);
-    }
-    viewObj->setObject(subname, static_cast<int>(round(x)), static_cast<int>(round(y)));
+//    viewObj->setObject(name, static_cast<int>(round(x)), static_cast<int>(round(y)));
 
 }
 
@@ -79,6 +69,7 @@ void Model::go() {
     for(auto &shuttle : shuttles) {
         shuttle->go();
         viewObj->setObject(shuttle->getName(), static_cast<int>(round(shuttle->getX())), static_cast<int>(round(shuttle->getY())));
+//        std::cout << shuttle->getName() << "X = " << shuttle->getX()<<" Y = " << shuttle->getY() << std::endl;
     }
 }
 

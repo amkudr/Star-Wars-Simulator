@@ -21,9 +21,9 @@ private:
     string field;
     map<string, pair<float, float>> objects;
     int size = 25;
-    int scale = 2;
-    int panX = 0;
-    int panY = 0;
+    float scale = 2;
+    float panX = 0;
+    float panY = 0;
 };
 
 

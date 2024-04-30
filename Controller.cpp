@@ -45,6 +45,13 @@ void Controller::run(int argc, char **argv) {
     model->addShuttle("GX", "Peter", 0,0);
     cout<<model->view();
     model->setSupply("GX", "Yavin", "DS");
+    model->go();
+    model->go();
+    model->go();
+    model->go();
+    model->go();
+    model->go();
+    model->go();
 
     cout<<model->view();
 

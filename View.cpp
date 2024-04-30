@@ -12,12 +12,12 @@ string View::show() { //Need to update to float!
 
     //create empty field
     stringstream ss;
-    int scaleSizeY = (size - 1) * scale + panY;
-    int yInd = scaleSizeY;
-    int xInd = panX;
+    float scaleSizeY = float(size - 1) * scale + panY;
+    float yInd = scaleSizeY;
+    float xInd = panX;
     for (int i = size - 1; i >= 0; i--) {
-        if ((yInd - panY) % (3 * scale) == 0) {
-            ss << std::setw(3) << std::left << yInd;
+        if ( static_cast<int>(round(yInd - panY)) % static_cast<int>(round(3 * scale)) == 0) {
+            ss << std::setw(3) << std::left << round(yInd);
         } else ss << "   ";
         yInd -= scale;
         for (int j = 0; j < size; j++) {
@@ -27,25 +27,30 @@ string View::show() { //Need to update to float!
     }
 
     for (int i = size - 1; i >= 0; i--) {
-        if ((xInd - panX) % (3 * scale) == 0) {
+        if (static_cast<int>(round(xInd - panX)) % static_cast<int>(round(3 * scale)) == 0) {
             ss << std::setw(4) << std::right << xInd;
         } else ss << " ";
         xInd += scale;
     }
     ss<<endl;
+
     // Add objects to field
     string out = ss.str();
     for (const auto &obj: objects) {
+        float x = obj.second.first;
+        float y = obj.second.second;
 
-        int x = static_cast<int>(round(obj.second.first)); //X of object
-        int y = static_cast<int>(round(obj.second.second)); //Y of object
+//        int x = static_cast<int>(round(obj.second.first)); //X of object
+//        int y = static_cast<int>(round(obj.second.second)); //Y of object
 
         if (x < xInd && y <= scaleSizeY && x >= panX && y >= panY) {
-            int lineSize = size * 2 + 4;
-            int ind = lineSize * (size - 1) -
-                      (y - panY) / scale * lineSize +
-                      (x - panX) / scale * 2 + 3;
-            out.replace(ind, 2, obj.first);
+
+            float lineSize = float(size) * 2 + 4;
+            float ind = lineSize * float(size - 1) -
+                      floor((y - panY) / scale) * lineSize +
+                      floor((x - panX) / scale) * 2 + 3;
+
+            out.replace(static_cast<std::string::size_type>(ind), 2, obj.first.substr(0,2)); //Put subname of object to map
         }
     }
     //Print title
