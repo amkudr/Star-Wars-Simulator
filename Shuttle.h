@@ -18,7 +18,7 @@ class Shuttle {
 public:
     Shuttle(string name, string pilot, float x, float y) : name(std::move(name)), pilot(std::move(pilot)), x(x), y(y) {}
 
-    void go();
+    void go(float restTime = 1);
 
     const string &getName() const;
 
@@ -42,10 +42,12 @@ private:
     int cargo = 0;
     int status = STOPPED;
     queue<pair<pair<float, float>, shared_ptr<SpaceStation>>> routeQue{}; // queue of pair coordinates + ptr
+    float leftTime = -1;
 //    shared_ptr<SpaceStation> sourSt = nullptr;
 //    shared_ptr<SpaceStation> ds = nullptr;
 //
-    void moving(float time);
+    float moving(float time);
+    float docking(float time);
 };
 
 

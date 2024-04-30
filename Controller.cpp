@@ -45,15 +45,15 @@ void Controller::run(int argc, char **argv) {
     model->addShuttle("GX", "Peter", 0,0);
     cout<<model->view();
     model->setSupply("GX", "Yavin", "DS");
-    model->go();
-    model->go();
-    model->go();
-    model->go();
-    model->go();
-    model->go();
-    model->go();
+    model->setSupply("GX", "Facility729D", "DS");
+    for(int i = 0; i<=120; i++){
+        model->go();
+        if (i%5 == 0){
+            cout<<model->view();
+        }
+    }
 
-    cout<<model->view();
+//    cout<<model->view();
 
     return;
     while (true) {

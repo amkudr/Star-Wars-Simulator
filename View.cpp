@@ -8,7 +8,7 @@ View::View() {
     objects = map<string, pair<float, float>>();
 }
 
-string View::show() { //Need to update to float!
+string View::show() { //TODO Need to update to float!
 
     //create empty field
     stringstream ss;
@@ -35,7 +35,7 @@ string View::show() { //Need to update to float!
     ss<<endl;
 
     // Add objects to field
-    string out = ss.str();
+    string out = ss.str(); //TODO Need to split to objects and shuttle
     for (const auto &obj: objects) {
         float x = obj.second.first;
         float y = obj.second.second;
