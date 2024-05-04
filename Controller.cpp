@@ -47,20 +47,18 @@ void Controller::run(int argc, char **argv) {
     model->setDest("Suuuuu","Facility729D");
 
     cout<<model->view();
+    cout<<model->status();
     model->setSupply("GX", "Yavin", "DS");
     model->setSupply("GX", "Facility729D", "DS");
-    model->go();
-    for(int i = 0; i<150; i++){
-        if(i == 144){
-            continue;
-        }
-        model->go();
-        cout<<i<<endl;
+    for(int i = 0; i<100; i++){
 
-        if (i%5 == 0){
-            cout<<model->status();
-//            cout<<model->view();
-        }
+        model->go();
+//        cout<<model->status();
+
+//        if (i%5 == 0){
+//            cout<<model->status();
+////            cout<<model->view();
+//        }
     }
     cout<<model->status();
 

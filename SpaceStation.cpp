@@ -1,3 +1,5 @@
+#include <sstream>
+#include <iomanip>
 #include "SpaceStation.h"
 
 const string &SpaceStation::getName() const {
@@ -34,4 +36,18 @@ void SpaceStation::setContNum(int contNum) {
 
 void SpaceStation::go() {
     ContNum = ContNum + SupNum;
+}
+
+string SpaceStation::getFullStatus() const {
+    ostringstream os;
+    if (getName() == "DS") {
+        os << "fortress ";
+    } else {
+        os << "station ";
+    }
+    os << name << " at position (" << std::fixed << std::setprecision(2)
+       << x << "," << y << "), Inventory " << ContNum;
+
+    return os.str();
+
 }

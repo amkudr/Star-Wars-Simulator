@@ -42,7 +42,7 @@ float Shuttle::supplying(float time) {
         if (leftTime == -1) leftTime = 1;
         float leftTime2 = leftTime - time;
         if (leftTime2 <= 0) {
-            destSt->setContNum(destSt->getContNum() + cargo);
+            destSt->setContNum(destSt->getContNum() - cargo);
             cargo = 0;
             pUnit++;
             leftTime = -1;

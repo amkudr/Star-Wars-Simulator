@@ -82,11 +82,15 @@ void Model::go() {
 
 string Model::status() {
     ostringstream os;
-    for(auto &shuttle : shuttles) {
-        os<<shuttle->getFullStatus()<<std::endl;
+    for(auto &station : *stations_ptr) {
+        os<<station->getFullStatus()<<std::endl;
     }
+
     for(auto &bomber : bombers) {
         os<<bomber->getFullStatus()<<std::endl;
+    }
+    for(auto &shuttle : shuttles) {
+        os<<shuttle->getFullStatus()<<std::endl;
     }
     return os.str();
 }

@@ -28,7 +28,9 @@ public:
 
     void setY(float y);
 
-    void setContNum(int contNum);;
+    void setContNum(int contNum);
+
+    string getFullStatus() const;
 
 private:
     string name;
