@@ -41,6 +41,16 @@ public:
 
     virtual void go(float restTime) = 0;
 
+    virtual void destination(const shared_ptr<SpaceStation>& dest) = 0;
+
+    virtual void course(float angle) = 0;
+
+    virtual void position(float x, float y) = 0;
+
+    float findDist(float p_x, float p_y) const;
+
+    float moving(float time);
+
 protected:
     string name;
     string pilot;
@@ -48,7 +58,6 @@ protected:
     float y;
     int status = STOPPED;
     float speed = 0;
-    int pUnit = 0;
     queue<pair<pair<float, float>, shared_ptr<SpaceStation>>> routeQue; // queue of pair coordinates + ptr
 
 

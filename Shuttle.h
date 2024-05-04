@@ -24,11 +24,13 @@ private:
     const string className = "Shuttle";
     int cargo = 0;
     float leftTime = -1;
-//    shared_ptr<SpaceStation> sourSt = nullptr;
-//    shared_ptr<SpaceStation> ds = nullptr;
-//
-    float moving(float time);
+
+//    float moving(float time) override;
     float supplying(float time);
+
+    void destination(const shared_ptr<SpaceStation>& dest) override {};
+    void course(float angle) override {};
+    void position(float x, float y) override {};
 };
 
 

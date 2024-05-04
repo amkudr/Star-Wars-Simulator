@@ -1,8 +1,8 @@
 #include "Shuttle.h"
 
 #include <utility>
-#include <cmath>
 #include <iostream>
+#include <cmath>
 
 
 //const std::string Shuttle::className = "shuttle";
@@ -14,10 +14,11 @@ void Shuttle::start_supply(const shared_ptr<SpaceStation> &sourSt_, const shared
 }
 
 void Shuttle::go(float restTime) {
-    while (status != STOPPED && status != DEAD && status != DOCKED && restTime != 0) {
+    while (status != STOPPED && status != DEAD && status != DOCKED && restTime >0) {
         switch (status) {
             case MOVING:
                 restTime = moving(restTime);
+                if(restTime != 0) setStatus(SUPPLYING);
                 break;
             case SUPPLYING:
                 restTime = supplying(restTime);
@@ -26,38 +27,7 @@ void Shuttle::go(float restTime) {
     }
 }
 
-float Shuttle::moving(float time) {
-    if (status != MOVING) {
-        return time;
-    }
-    if (routeQue.empty()) {
-        status = DOCKED;
-        return time;
-    }
 
-//    shared_ptr<SpaceStation> dest;
-//    dest = routeQue.front();
-//    float dest_x = dest->getX();
-//    float dest_y = dest->getY();
-    float dest_x = routeQue.front().first.first;
-    float dest_y = routeQue.front().first.second;
-
-    auto dist = float(sqrt(pow(dest_x - x, 2) + pow(dest_y - y, 2)));
-
-    float dist_time = dist / speed;
-
-    if (dist_time > time) {
-        x = x + (dest_x - x) / dist * speed * time; //new x
-        y = y + (dest_y - y) / dist * speed * time; //new y
-    } else {
-        x = dest_x;
-        y = dest_y;
-        time = time - dist_time;
-        status = SUPPLYING;
-        return time;
-    }
-    return 0;
-}
 
 
 float Shuttle::supplying(float time) {

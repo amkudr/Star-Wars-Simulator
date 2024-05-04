@@ -43,13 +43,23 @@ void Controller::run(int argc, char **argv) {
     string command;
     int time = 0;
     model->addShuttle("GX", "Peter", 0,0);
+    model->addBomber("Suuuuu", "Pidr", 15,30);
+    model->setDest("Suuuuu","Facility729D");
+
     cout<<model->view();
     model->setSupply("GX", "Yavin", "DS");
     model->setSupply("GX", "Facility729D", "DS");
-    for(int i = 0; i<=220; i++){
+    model->go();
+    for(int i = 0; i<150; i++){
+        if(i == 144){
+            continue;
+        }
         model->go();
+        cout<<i<<endl;
+
         if (i%5 == 0){
             cout<<model->status();
+//            cout<<model->view();
         }
     }
     cout<<model->status();
