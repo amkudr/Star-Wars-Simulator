@@ -6,7 +6,7 @@
 #include <cmath>
 #include <iostream>
 
-void Shuttle::setRoute(const shared_ptr<SpaceStation>& sourSt_, const shared_ptr<SpaceStation>& ds_) {
+void Shuttle::setRoute(const shared_ptr<SpaceStation> &sourSt_, const shared_ptr<SpaceStation> &ds_) {
     routeQue.emplace(make_pair(sourSt_->getX(), sourSt_->getY()), sourSt_);
     routeQue.emplace(make_pair(ds_->getX(), ds_->getY()), ds_);
     status = MOVING;
@@ -27,6 +27,7 @@ void Shuttle::go(float restTime) {
 
     go(restTime);
 }
+
 float Shuttle::moving(float time) {
     if (routeQue.empty()) {
         status = STOPPED;
@@ -56,25 +57,6 @@ float Shuttle::moving(float time) {
     return 0;
 }
 
-const string &Shuttle::getName() const {
-    return name;
-}
-
-int Shuttle::getStatus() const {
-    return status;
-}
-
-void Shuttle::setStatus(int status_) {
-    Shuttle::status = status_;
-}
-
-float Shuttle::getX() const {
-    return x;
-}
-
-float Shuttle::getY() const {
-    return y;
-}
 
 float Shuttle::docking(float time) {
     if (routeQue.empty()) {
@@ -92,7 +74,7 @@ float Shuttle::docking(float time) {
             leftTime = -1;
             status = MOVING;
             routeQue.pop();
-            std::cout<<" Fuck It was Hard but now i got "<<this->pUnit<<std::endl;
+            std::cout << " Fuck It was Hard but now i got " << this->pUnit << std::endl;
             return abs(leftTime2);
         } else {
             leftTime = leftTime2;
@@ -100,23 +82,21 @@ float Shuttle::docking(float time) {
         }
     } else if (destSt != nullptr) {
         int resCont = destSt->getContNum();
-        if(leftTime == -1) leftTime = 1;
+        if (leftTime == -1) leftTime = 1;
         float leftTime2 = leftTime - time;
         if (leftTime2 <= 0) {
-            if(resCont > 5) cargo = 5;
+            if (resCont > 5) cargo = 5;
             else cargo = resCont;
             destSt->setContNum(resCont - cargo);
             leftTime = -1;
             status = MOVING;
             routeQue.pop();
             return abs(leftTime2);
-        }
-        else {
+        } else {
             leftTime = leftTime2;
             return 0;
         }
-    }
-    else {
+    } else {
         routeQue.pop();
         status = STOPPED;
         return 0;
