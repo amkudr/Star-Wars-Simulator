@@ -18,6 +18,7 @@ public:
     void setSupply(const string& name, const string& sourSt, const string& destSt);
     void go(); //Update all objects in one hour
     string view();
+    string status();
 
 private:
     Model();

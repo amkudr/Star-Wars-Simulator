@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "Model.h"
 #include "cmath"
 
@@ -74,5 +75,13 @@ void Model::go() {
     for(auto &station : stations) {
         station->go();
     }
+}
+
+string Model::status() {
+    ostringstream os;
+    for(auto &shuttle : shuttles) {
+        os<<shuttle->getFullStatus()<<std::endl;
+    }
+    return os.str();
 }
 

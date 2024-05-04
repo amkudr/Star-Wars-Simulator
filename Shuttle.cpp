@@ -4,6 +4,9 @@
 #include <cmath>
 #include <iostream>
 
+
+//const std::string Shuttle::className = "shuttle";
+
 void Shuttle::start_supply(const shared_ptr<SpaceStation> &sourSt_, const shared_ptr<SpaceStation> &ds_) {
     routeQue.emplace(make_pair(sourSt_->getX(), sourSt_->getY()), sourSt_);
     routeQue.emplace(make_pair(ds_->getX(), ds_->getY()), ds_);
@@ -11,13 +14,13 @@ void Shuttle::start_supply(const shared_ptr<SpaceStation> &sourSt_, const shared
 }
 
 void Shuttle::go(float restTime) {
-    while (status != STOPPED && status != DEAD && restTime != 0 && !routeQue.empty()) {
+    while (status != STOPPED && status != DEAD && status != DOCKED && restTime != 0) {
         switch (status) {
             case MOVING:
                 restTime = moving(restTime);
                 break;
-            case DOCKED:
-                restTime = docking(restTime);
+            case SUPPLYING:
+                restTime = supplying(restTime);
                 break;
         }
     }
@@ -28,7 +31,7 @@ float Shuttle::moving(float time) {
         return time;
     }
     if (routeQue.empty()) {
-        status = STOPPED;
+        status = DOCKED;
         return time;
     }
 
@@ -50,19 +53,19 @@ float Shuttle::moving(float time) {
         x = dest_x;
         y = dest_y;
         time = time - dist_time;
-        status = DOCKED;
+        status = SUPPLYING;
         return time;
     }
     return 0;
 }
 
 
-float Shuttle::docking(float time) {
+float Shuttle::supplying(float time) {
+    if (status != SUPPLYING) return time;
     if (routeQue.empty()) {
-        status = STOPPED;
+        status = DOCKED;
         return 0;
     }
-    if (status != DOCKED) return time;
 
     shared_ptr<SpaceStation> destSt = routeQue.front().second;
     if (destSt->getName() == "DS") {
@@ -73,15 +76,15 @@ float Shuttle::docking(float time) {
             cargo = 0;
             pUnit++;
             leftTime = -1;
-            status = MOVING;
             routeQue.pop();
+            status = MOVING;
             std::cout << " Fuck It was Hard but now i got " << this->pUnit << std::endl;
             return abs(leftTime2);
         } else {
             leftTime = leftTime2;
             return 0;
         }
-    } else if (destSt != nullptr) {
+    } else {
         int resCont = destSt->getContNum();
         if (leftTime == -1) leftTime = 1;
         float leftTime2 = leftTime - time;
@@ -97,9 +100,13 @@ float Shuttle::docking(float time) {
             leftTime = leftTime2;
             return 0;
         }
-    } else {
-        routeQue.pop();
-        status = STOPPED;
-        return 0;
     }
+}
+
+string Shuttle::getClassName() const {
+    return "shuttle";
+}
+
+float Shuttle::getSpeed() const {
+    return speed;
 }

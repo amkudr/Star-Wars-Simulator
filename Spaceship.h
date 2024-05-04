@@ -4,16 +4,16 @@
 #include "string"
 #include <memory>
 #include <queue>
-
-
 #include "SpaceStation.h"
 
-
-#define STOPPED 0
-#define DOCKED 1
-#define DEAD (-1)
-#define MOVING 2
-#define NOTEXIST (-2)
+enum Status {
+    STOPPED,
+    DOCKED,
+    DEAD,
+    MOVING,
+    SUPPLYING,
+    NOTEXIST
+};
 
 using namespace std;
 
@@ -22,6 +22,7 @@ class Spaceship {
 public:
     Spaceship(string name, string pilot, float x, float y) : name(std::move(name)), pilot(std::move(pilot)), x(x),
                                                              y(y) {}
+
     const string &getName() const;
 
     int getStatus() const;
@@ -30,7 +31,13 @@ public:
 
     float getY() const;
 
+    virtual string getClassName() const;
+
+    virtual float getSpeed() const;
+
     void setStatus(int status_);
+
+    string getFullStatus() const;
 
     virtual void go(float restTime) = 0;
 
@@ -40,6 +47,7 @@ protected:
     float x;
     float y;
     int status = STOPPED;
+    float speed = 0;
     int pUnit = 0;
     queue<pair<pair<float, float>, shared_ptr<SpaceStation>>> routeQue; // queue of pair coordinates + ptr
 

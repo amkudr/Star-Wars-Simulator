@@ -48,10 +48,11 @@ void Controller::run(int argc, char **argv) {
     model->setSupply("GX", "Facility729D", "DS");
     for(int i = 0; i<=220; i++){
         model->go();
-//        if (i%5 == 0){
-//            cout<<model->view();
-//        }
+        if (i%5 == 0){
+            cout<<model->status();
+        }
     }
+    cout<<model->status();
 
     cout<<model->view();
 

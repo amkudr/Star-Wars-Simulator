@@ -14,18 +14,21 @@ public:
     Shuttle(string name, string pilot, float x, float y): Spaceship(std::move(name), std::move(pilot), x, y) {};
     void go(float restTime) override;
     void start_supply(const shared_ptr<SpaceStation>& sourSt_, const shared_ptr<SpaceStation>& ds_);
+    string getClassName() const override;
 
+    float getSpeed() const override;
 
 private:
     int pUnit = 10;
     float speed = 0.5;
+    const string className = "Shuttle";
     int cargo = 0;
     float leftTime = -1;
 //    shared_ptr<SpaceStation> sourSt = nullptr;
 //    shared_ptr<SpaceStation> ds = nullptr;
 //
     float moving(float time);
-    float docking(float time);
+    float supplying(float time);
 };
 
 
