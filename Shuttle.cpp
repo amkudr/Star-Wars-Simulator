@@ -1,38 +1,37 @@
-//
-
 #include "Shuttle.h"
 
 #include <utility>
 #include <cmath>
 #include <iostream>
 
-void Shuttle::setRoute(const shared_ptr<SpaceStation> &sourSt_, const shared_ptr<SpaceStation> &ds_) {
+void Shuttle::start_supply(const shared_ptr<SpaceStation> &sourSt_, const shared_ptr<SpaceStation> &ds_) {
     routeQue.emplace(make_pair(sourSt_->getX(), sourSt_->getY()), sourSt_);
     routeQue.emplace(make_pair(ds_->getX(), ds_->getY()), ds_);
     status = MOVING;
 }
 
 void Shuttle::go(float restTime) {
-    if (status == STOPPED || status == DEAD || restTime == 0 || routeQue.empty())
-        return;
-
-    switch (status) {
-        case MOVING:
-            restTime = moving(restTime);
-            break;
-        case DOCKED:
-            restTime = docking(restTime);
-            break;
+    while (status != STOPPED && status != DEAD && restTime != 0 && !routeQue.empty()) {
+        switch (status) {
+            case MOVING:
+                restTime = moving(restTime);
+                break;
+            case DOCKED:
+                restTime = docking(restTime);
+                break;
+        }
     }
-
-    go(restTime);
 }
 
 float Shuttle::moving(float time) {
+    if (status != MOVING) {
+        return time;
+    }
     if (routeQue.empty()) {
         status = STOPPED;
         return time;
     }
+
 //    shared_ptr<SpaceStation> dest;
 //    dest = routeQue.front();
 //    float dest_x = dest->getX();
@@ -63,6 +62,8 @@ float Shuttle::docking(float time) {
         status = STOPPED;
         return 0;
     }
+    if (status != DOCKED) return time;
+
     shared_ptr<SpaceStation> destSt = routeQue.front().second;
     if (destSt->getName() == "DS") {
         if (leftTime == -1) leftTime = 1;

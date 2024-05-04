@@ -58,7 +58,7 @@ void Model::setSupply(const string &name, const string &sourSt, const string &de
                 }
             }
             if(sourStPtr != nullptr && destStPtr != nullptr){
-                shuttle->setRoute(sourStPtr, destStPtr);
+                shuttle->start_supply(sourStPtr, destStPtr);
                 return;
             }
         }
@@ -67,7 +67,7 @@ void Model::setSupply(const string &name, const string &sourSt, const string &de
 
 void Model::go() {
     for(auto &shuttle : shuttles) {
-        shuttle->go();
+        shuttle->go(1);
         viewObj->setObject(shuttle->getName(), static_cast<int>(round(shuttle->getX())), static_cast<int>(round(shuttle->getY())));
 //        std::cout << shuttle->getName() << "X = " << shuttle->getX()<<" Y = " << shuttle->getY() << std::endl;
     }

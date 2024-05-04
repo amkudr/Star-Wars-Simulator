@@ -27,4 +27,6 @@ add_executable(HWFinal main.cpp
         MidImperialFactory.cpp
         MidImperialFactory.h
         Spaceship.cpp
-        Spaceship.h)
+        Spaceship.h
+        TIEBomber.cpp
+        TIEBomber.h)

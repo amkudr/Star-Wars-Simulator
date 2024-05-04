@@ -2,6 +2,12 @@
 #define HWFINAL_SPACESHIP_H
 
 #include "string"
+#include <memory>
+#include <queue>
+
+
+#include "SpaceStation.h"
+
 
 #define STOPPED 0
 #define DOCKED 1
@@ -26,6 +32,7 @@ public:
 
     void setStatus(int status_);
 
+    virtual void go(float restTime) = 0;
 
 protected:
     string name;
@@ -33,6 +40,9 @@ protected:
     float x;
     float y;
     int status = STOPPED;
+    int pUnit = 0;
+    queue<pair<pair<float, float>, shared_ptr<SpaceStation>>> routeQue; // queue of pair coordinates + ptr
+
 
 };
 

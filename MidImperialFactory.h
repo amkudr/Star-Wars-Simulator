@@ -12,9 +12,9 @@ class MidImperialFactory : public ImperialFactory {
         return new Midshipman(name);
     }
 
-    Spaceship *createSpaceShip(const string &name, const string &pilot, float x, float y) {
-        return new Spaceship(name, pilot, x, y);
-    }
+//    Spaceship *createSpaceShip(const string &name, const string &pilot, float x, float y) {
+//        return new Spaceship(name, pilot, x, y);
+//    }
 
 
 };
