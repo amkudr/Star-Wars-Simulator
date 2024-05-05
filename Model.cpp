@@ -120,3 +120,25 @@ void Model::setDest(const string &name, const string &destSt) {
 
 }
 
+void Model::setPos(const string &name, float x, float y) {
+
+    for (auto &bomber : bombers) {
+        if (bomber->getName() == name) {
+            bomber->position(x, y);
+            return;
+        }
+    }
+
+}
+
+void Model::setCourse(const string &name, float angle) {
+
+    for (auto &bomber : bombers) {
+        if (bomber->getName() == name) {
+            bomber->course(angle);
+            return;
+        }
+    }
+
+}
+

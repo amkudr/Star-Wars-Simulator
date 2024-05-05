@@ -31,6 +31,11 @@ public:
 
     float getY() const;
 
+    float getAngle() const;
+
+    bool isCourse1() const;
+
+
     virtual string getClassName() const;
 
     virtual float getSpeed() const;
@@ -41,11 +46,11 @@ public:
 
     virtual void go(float restTime) = 0;
 
-    virtual void destination(const shared_ptr<SpaceStation>& dest) = 0;
+    virtual void destination(const shared_ptr<SpaceStation>& dest);
 
-    virtual void course(float angle) = 0;
+    virtual void course(float angle_);
 
-    virtual void position(float x, float y) = 0;
+    virtual void position(float x_, float y_);
 
     float findDist(float p_x, float p_y) const;
 
@@ -58,6 +63,8 @@ protected:
     float y;
     int status = STOPPED;
     float speed = 0;
+    float angle = 0;
+    bool isCourse = false;
     queue<pair<pair<float, float>, shared_ptr<SpaceStation>>> routeQue; // queue of pair coordinates + ptr
 
 

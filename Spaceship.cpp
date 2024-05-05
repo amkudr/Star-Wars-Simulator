@@ -41,7 +41,9 @@ string Spaceship::getFullStatus() const {
             os << "Dead";
             break;
         case MOVING:
-            os << "Heading to " << routeQue.front().second->getName() << ", speed " << getSpeed() * 1000 << "km/h";
+            if (routeQue.front().second != nullptr) os << "Heading to " << routeQue.front().second->getName();
+            else os << "Moving to (" << routeQue.front().first.first << "," << routeQue.front().first.second << ")";
+            os << ", speed " << getSpeed() * 1000 << "km/h";
             break;
         case SUPPLYING:
             os << "Docked";
@@ -71,6 +73,11 @@ float Spaceship::moving(float time) {
         return time;
     }
     if (routeQue.empty()) {
+        if (isCourse) {
+            x = x + cos(getAngle()) * getSpeed() * time;
+            y = y + sin(getAngle()) * getSpeed() * time;
+            return 0;
+        }
         setStatus(STOPPED);
         return time;
     }
@@ -89,9 +96,36 @@ float Spaceship::moving(float time) {
         x = dest_x;
         y = dest_y;
         time = time - dist_time;
-        if(time == 0) return -1; //if need to change status
+        if (time == 0) return -1; //if need to change status
         return time;
     }
     return 0;
+}
+
+void Spaceship::position(float x_, float y_) {
+    routeQue.emplace(make_pair(x_, y_), nullptr);
+    setStatus(MOVING);
+
+}
+
+void Spaceship::destination(const shared_ptr<SpaceStation> &dest) {
+    routeQue.emplace(make_pair(dest->getX(), dest->getY()), dest);
+    setStatus(MOVING);
+}
+
+void Spaceship::course(float angle_) {
+
+    angle = angle_;
+    isCourse = true;
+    setStatus(MOVING);
+
+}
+
+float Spaceship::getAngle() const {
+    return angle;
+}
+
+bool Spaceship::isCourse1() const {
+    return isCourse;
 }
 

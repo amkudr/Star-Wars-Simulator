@@ -1,5 +1,7 @@
 #include <sstream>
 #include <iomanip>
+#include <cmath>
+
 #include "SpaceStation.h"
 
 const string &SpaceStation::getName() const {
@@ -50,4 +52,8 @@ string SpaceStation::getFullStatus() const {
 
     return os.str();
 
+}
+
+float SpaceStation::findDist(float p_x, float p_y) const {
+    return float(sqrt(pow(p_x - x, 2) + pow(p_y - y, 2)));
 }

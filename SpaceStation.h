@@ -30,6 +30,9 @@ public:
 
     void setContNum(int contNum);
 
+    float findDist(float p_x, float p_y) const;
+
+
     string getFullStatus() const;
 
 private:

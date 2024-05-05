@@ -20,20 +20,13 @@ public:
 
     void go(float restTime) override;
 
-    void position(float x, float y) override {};
+//    void position(float x, float y) override;
 
-    void course(float angle) override {};
+//    void course(float angle) override {};
 
     void findNewDest();
 
 private:
-//    struct SpaceStationComparator {
-//        bool operator()(const shared_ptr<SpaceStation>& st1, const shared_ptr<SpaceStation>& st2) {
-//
-//            return findDist(st1->getX(), st1->getY()) < findDist(st2->getX(), st2->getY());
-//        }
-//    };
-
     shared_ptr<SpaceStation> destSt;
     float speed = 1;
     shared_ptr<vector<shared_ptr<SpaceStation>>> stations_ptr;

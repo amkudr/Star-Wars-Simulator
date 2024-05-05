@@ -44,16 +44,33 @@ void Controller::run(int argc, char **argv) {
     int time = 0;
     model->addShuttle("GX", "Peter", 0,0);
     model->addBomber("Suuuuu", "Pidr", 15,30);
-    model->setDest("Suuuuu","Facility729D");
+//    model->setDest("Suuuuu","Facility729D");
 
     cout<<model->view();
     cout<<model->status();
     model->setSupply("GX", "Yavin", "DS");
     model->setSupply("GX", "Facility729D", "DS");
-    for(int i = 0; i<100; i++){
+    model->setCourse("Suuuuu",90);
 
+    for(int i = 0; i<400; i++){
+        if(i%5==0){
+            cout<<model->view();
+            cout<<model->status();
+        }
+
+
+        if(i==20){
+
+            model->go();
+            cout<<"Hop\n";
+            cout<<model->status();
+            cout<<model->view();
+            cout<<"Hop\n";
+
+        }
         model->go();
-//        cout<<model->status();
+
+
 
 //        if (i%5 == 0){
 //            cout<<model->status();

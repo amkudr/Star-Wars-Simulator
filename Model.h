@@ -19,6 +19,8 @@ public:
     int getShStatus(const string& name);
     void setSupply(const string& name, const string& sourSt, const string& destSt);
     void setDest(const string& name, const string& destSt);
+    void setPos(const string& name, float x, float y);
+    void setCourse(const string& name, float angle);
     void go(); //Update all objects in one hour
     string view();
     string status();
