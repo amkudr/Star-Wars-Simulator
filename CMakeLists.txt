@@ -29,4 +29,6 @@ add_executable(HWFinal main.cpp
         Spaceship.cpp
         Spaceship.h
         TIEBomber.cpp
-        TIEBomber.h)
+        TIEBomber.h
+        StarDestroyer.cpp
+        StarDestroyer.h)

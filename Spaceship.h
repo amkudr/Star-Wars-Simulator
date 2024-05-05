@@ -33,7 +33,7 @@ public:
 
     float getAngle() const;
 
-    bool isCourse1() const;
+    bool isCourse() const;
 
 
     virtual string getClassName() const;
@@ -64,7 +64,7 @@ protected:
     int status = STOPPED;
     float speed = 0;
     float angle = 0;
-    bool isCourse = false;
+    bool isCour = false;
     queue<pair<pair<float, float>, shared_ptr<SpaceStation>>> routeQue; // queue of pair coordinates + ptr
 
 

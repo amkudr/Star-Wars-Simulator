@@ -1,4 +1,3 @@
-//
 #include <iomanip>
 #include <sstream>
 #include "Spaceship.h"
@@ -41,7 +40,9 @@ string Spaceship::getFullStatus() const {
             os << "Dead";
             break;
         case MOVING:
-            if (routeQue.front().second != nullptr) os << "Heading to " << routeQue.front().second->getName();
+
+            if(routeQue.empty() && isCourse()) os<<"Heading on course " << getAngle()<< " deg" ;
+            else if (routeQue.front().second != nullptr) os << "Heading to " << routeQue.front().second->getName();
             else os << "Moving to (" << routeQue.front().first.first << "," << routeQue.front().first.second << ")";
             os << ", speed " << getSpeed() * 1000 << "km/h";
             break;
@@ -72,12 +73,12 @@ float Spaceship::moving(float time) {
     if (status != MOVING) {
         return time;
     }
+    if (isCour) {
+        x = x + cos(getAngle()) * getSpeed() * time;
+        y = y + sin(getAngle()) * getSpeed() * time;
+        return 0;
+    }
     if (routeQue.empty()) {
-        if (isCourse) {
-            x = x + cos(getAngle()) * getSpeed() * time;
-            y = y + sin(getAngle()) * getSpeed() * time;
-            return 0;
-        }
         setStatus(STOPPED);
         return time;
     }
@@ -103,20 +104,23 @@ float Spaceship::moving(float time) {
 }
 
 void Spaceship::position(float x_, float y_) {
+    while (!routeQue.empty()) routeQue.pop();
     routeQue.emplace(make_pair(x_, y_), nullptr);
     setStatus(MOVING);
 
 }
 
 void Spaceship::destination(const shared_ptr<SpaceStation> &dest) {
+    while (!routeQue.empty()) routeQue.pop();
     routeQue.emplace(make_pair(dest->getX(), dest->getY()), dest);
     setStatus(MOVING);
 }
 
 void Spaceship::course(float angle_) {
 
+    while (!routeQue.empty()) routeQue.pop();
     angle = angle_;
-    isCourse = true;
+    isCour = true;
     setStatus(MOVING);
 
 }
@@ -125,7 +129,7 @@ float Spaceship::getAngle() const {
     return angle;
 }
 
-bool Spaceship::isCourse1() const {
-    return isCourse;
+bool Spaceship::isCourse() const {
+    return isCour;
 }
 

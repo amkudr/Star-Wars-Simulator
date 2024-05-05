@@ -20,10 +20,6 @@ public:
 
     void go(float restTime) override;
 
-//    void position(float x, float y) override;
-
-//    void course(float angle) override {};
-
     void findNewDest();
 
 private:
