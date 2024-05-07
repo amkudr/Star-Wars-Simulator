@@ -20,13 +20,11 @@ public:
 
     void go(float restTime) override;
 
-    void findNewDest();
+//    void findNewDest();
 
 private:
-    shared_ptr<SpaceStation> destSt;
     float speed = 1;
     shared_ptr<vector<shared_ptr<SpaceStation>>> stations_ptr;
-    vector<shared_ptr<SpaceStation>> visitedSt; //vector of visited stations
 };
 
 

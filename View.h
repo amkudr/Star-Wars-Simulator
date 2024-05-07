@@ -12,7 +12,7 @@ class View {
 public:
     View();
     string show();
-    void setObject(const string& name, int x, int y);
+    void setObject(const string& name, float x, float y);
 //    void setZoom(int scale);
 //    void setPan(float x, float y);
 //

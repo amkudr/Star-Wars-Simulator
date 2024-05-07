@@ -1,5 +1,3 @@
-//
-
 #include "StarDestroyer.h"
 
 float StarDestroyer::getSpeed() const {
@@ -15,7 +13,7 @@ void StarDestroyer::go(float restTime) {
         switch (status) {
             case MOVING:
                 restTime = moving(restTime);
-                if (restTime != 0) {
+                if (restTime != 0 && getStatus()!=STOPPED) {
                     routeQue.pop();
                 }
                 break;

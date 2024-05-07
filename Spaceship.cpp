@@ -133,3 +133,8 @@ bool Spaceship::isCourse() const {
     return isCour;
 }
 
+void Spaceship::stop() {
+    if(status != DEAD) setStatus(STOPPED);
+    while(!routeQue.empty()) routeQue.pop();
+}
+

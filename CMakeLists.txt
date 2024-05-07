@@ -31,4 +31,6 @@ add_executable(HWFinal main.cpp
         TIEBomber.cpp
         TIEBomber.h
         StarDestroyer.cpp
-        StarDestroyer.h)
+        StarDestroyer.h
+        Falcon.cpp
+        Falcon.h)

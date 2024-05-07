@@ -18,7 +18,7 @@ void Shuttle::go(float restTime) {
         switch (status) {
             case MOVING:
                 restTime = moving(restTime);
-                if(restTime != 0) setStatus(SUPPLYING);
+                if(restTime != 0 ) setStatus(SUPPLYING);
                 break;
             case SUPPLYING:
                 restTime = supplying(restTime);

@@ -61,6 +61,6 @@ string View::show() { //TODO Need to update to float!
     return title + out;
 }
 
-void View::setObject(const string &name, int x, int y) {
+void View::setObject(const string &name, float x, float y) {
     objects[name] = make_pair(x, y);
 }

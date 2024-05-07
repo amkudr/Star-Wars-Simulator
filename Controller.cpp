@@ -44,31 +44,43 @@ void Controller::run(int argc, char **argv) {
     int time = 0;
     model->addShuttle("GX", "Peter", 0, 0);
     model->addBomber("Suuuuu", "Pidr", 15, 30);
-//    model->setDest("Suuuuu","Facility729D");
+    model->addFalcon("NAVALNIY", 5,5);
+    model->addDestroyer("Putin", "Huilo", 10, 20);
+    model->destination("Suuuuu","Facility729D");
 
-    cout << model->view();
-    cout << model->status();
-    model->setSupply("GX", "Yavin", "DS");
-    model->setSupply("GX", "Facility729D", "DS");
-    model->setCourse("Suuuuu", 90);
+//    cout << model->view();
+//    cout << model->status();
+    model->start_supply("GX", "Yavin", "DS");
+    model->start_supply("GX", "Yavin", "DS");
+    model->start_supply("GX", "Facility729D", "DS");
+    model->start_supply("GX", "Facility729D", "DS");
+    model->position("NAVALNIY", 30,20);
+    model->destination("Putin", "DS");
+    model->go();
+    model->go();
+    model->shoot("Putin", 30,20);
 
-    for (int i = 0; i < 400; i++) {
+    for (int i = 0; i < 450; i++) {
+        if(i == 4){
+            continue;
+        }
+        model->go();
+        cout<<i<< endl;
         if (i % 5 == 0) {
             cout << model->view();
             cout << model->status();
         }
 
 
-        if (i == 20) {
-
-            model->go();
-            cout << "Hop\n";
-            cout << model->status();
-            cout << model->view();
-            cout << "Hop\n";
-
-        }
-        model->go();
+//        if (i == 20) {
+//
+//            model->go();
+//            cout << "Hop\n";
+//            cout << model->status();
+//            cout << model->view();
+//            cout << "Hop\n";
+//
+//        }
 
 
 
@@ -117,10 +129,10 @@ void Controller::run(int argc, char **argv) {
             while (iss >> word) {
                 inputVec.push_back(word);
             }
-            if (model->getShStatus(command) != NOTEXIST) {
-                if (inputVec[0] == "start_supply" && inputVec.size() == 3) {
-                }
-            } else cout << "Wrong command" << endl;
+//            if (model->getShStatus(command) != NOTEXIST) {
+//                if (inputVec[0] == "start_supply" && inputVec.size() == 3) {
+//                }
+//            } else cout << "Wrong command" << endl;
 
         }
     }

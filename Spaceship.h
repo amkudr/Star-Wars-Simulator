@@ -35,7 +35,6 @@ public:
 
     bool isCourse() const;
 
-
     virtual string getClassName() const;
 
     virtual float getSpeed() const;
@@ -51,6 +50,8 @@ public:
     virtual void course(float angle_);
 
     virtual void position(float x_, float y_);
+
+    void stop();
 
     float findDist(float p_x, float p_y) const;
 
