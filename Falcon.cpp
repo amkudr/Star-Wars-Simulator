@@ -28,25 +28,3 @@ void Falcon::dead() {
     setStatus(DEAD);
 }
 
-void Falcon::go(float restTime) {
-    while (status != STOPPED && status != DEAD  && restTime > 0) {
-        switch (status) {
-            case MOVING:
-                restTime = moving(restTime);
-                if (restTime != 0 && getStatus()!=STOPPED) {
-//                    if(routeQue.front().second->getName().empty()) course(routeQue.front().second->getX());
-                    routeQue.pop();
-                }
-//                    if (destSt != nullptr) {
-//                        visitedSt.emplace_back(routeQue.front().second);
-//                    }
-//                    routeQue.pop();
-//                    findNewDest();
-//                }
-                break;
-        }
-    }
-
-
-}
-

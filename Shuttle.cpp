@@ -5,8 +5,6 @@
 #include <cmath>
 
 
-//const std::string Shuttle::className = "shuttle";
-
 void Shuttle::start_supply(const shared_ptr<SpaceStation> &sourSt_, const shared_ptr<SpaceStation> &ds_) {
     routeQue.emplace(make_pair(sourSt_->getX(), sourSt_->getY()), sourSt_);
     routeQue.emplace(make_pair(ds_->getX(), ds_->getY()), ds_);
@@ -14,11 +12,10 @@ void Shuttle::start_supply(const shared_ptr<SpaceStation> &sourSt_, const shared
 }
 
 void Shuttle::go(float restTime) {
-    while (status != STOPPED && status != DEAD && status != DOCKED && restTime >0) {
+    while (status != STOPPED && status != DEAD && status != DOCKED && restTime > 0) {
         switch (status) {
             case MOVING:
                 restTime = moving(restTime);
-                if(restTime != 0 ) setStatus(SUPPLYING);
                 break;
             case SUPPLYING:
                 restTime = supplying(restTime);
@@ -26,8 +23,6 @@ void Shuttle::go(float restTime) {
         }
     }
 }
-
-
 
 
 float Shuttle::supplying(float time) {
@@ -47,7 +42,8 @@ float Shuttle::supplying(float time) {
             pUnit++;
             leftTime = -1;
             routeQue.pop();
-            status = MOVING;
+            if (routeQue.empty()) setStatus(DOCKED);
+            else setStatus(MOVING);
             std::cout << " Fuck It was Hard but now i got " << this->pUnit << std::endl;
             return abs(leftTime2);
         } else {

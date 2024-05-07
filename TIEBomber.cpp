@@ -11,7 +11,6 @@ string TIEBomber::getClassName() const {
 
 void TIEBomber::destination(const shared_ptr<SpaceStation> &dest) {
 
-
     Spaceship::destination(dest);
     vector<shared_ptr<SpaceStation>> notVisitedSt;
 
@@ -21,8 +20,8 @@ void TIEBomber::destination(const shared_ptr<SpaceStation> &dest) {
     }
     float min_dist = numeric_limits<float>::max();
     float dist;
-    float curr_x = getX();
-    float curr_y = getY();
+    float curr_x = dest->getX();
+    float curr_y = dest->getY();
     shared_ptr<SpaceStation> station;
     while (!notVisitedSt.empty()) {
         for (auto &st: notVisitedSt) {
@@ -56,26 +55,6 @@ void TIEBomber::destination(const shared_ptr<SpaceStation> &dest) {
 //    }
 //    routeQue.emplace(make_pair(dest->getX(), dest->getY()), dest);
 
-
-void TIEBomber::go(float restTime) {
-    while (status != STOPPED && status != DEAD && status != DOCKED && restTime > 0) {
-        switch (status) {
-            case MOVING:
-                restTime = moving(restTime);
-                if (restTime != 0 && status != STOPPED) {
-//                    if(routeQue.front().second->getName().empty()) course(routeQue.front().second->getX());
-                    routeQue.pop();
-                }
-//                    if (destSt != nullptr) {
-//                        visitedSt.emplace_back(routeQue.front().second);
-//                    }
-//                    routeQue.pop();
-//                    findNewDest();
-//                }
-                break;
-        }
-    }
-}
 
 //void TIEBomber::findNewDest() {
 //    if (visitedSt.size() == stations_ptr->size()) {

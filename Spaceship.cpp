@@ -22,7 +22,7 @@ int Spaceship::getStatus() const {
 
 
 void Spaceship::setStatus(int status_) {
-    Spaceship::status = status_;
+    status = status_;
 }
 
 string Spaceship::getFullStatus() const {
@@ -41,7 +41,7 @@ string Spaceship::getFullStatus() const {
             break;
         case MOVING:
 
-            if(routeQue.empty() && isCourse()) os<<"Heading on course " << getAngle()<< " deg" ;
+            if (routeQue.empty() && isCourse()) os << "Heading on course " << getAngle() << " deg";
             else if (routeQue.front().second != nullptr) os << "Heading to " << routeQue.front().second->getName();
             else os << "Moving to (" << routeQue.front().first.first << "," << routeQue.front().first.second << ")";
             os << ", speed " << getSpeed() * 1000 << "km/h";
@@ -73,9 +73,10 @@ float Spaceship::moving(float time) {
     if (status != MOVING) {
         return time;
     }
-    if (isCour) {
-        x = x + cos(getAngle()) * getSpeed() * time;
-        y = y + sin(getAngle()) * getSpeed() * time;
+    if (isCour) { //If moving on course
+        auto radians = float(getAngle() * M_PI / 180.0);
+        x = x + cos(radians) * getSpeed() * time;
+        y = y + sin(radians) * getSpeed() * time;
         return 0;
     }
     if (routeQue.empty()) {
@@ -90,14 +91,29 @@ float Spaceship::moving(float time) {
 
     float dist_time = dist / getSpeed();
 
-    if (dist_time > time) {
+    if (dist_time > time) { //Check if time is enough to get the destination
         x = x + (dest_x - x) / dist * getSpeed() * time; //new x
         y = y + (dest_y - y) / dist * getSpeed() * time; //new y
     } else {
         x = dest_x;
         y = dest_y;
         time = time - dist_time;
-        if (time == 0) return -1; //if need to change status
+
+        //Spaceship got destination, have to change status
+        if (routeQue.front().second != nullptr) {
+            if (getClassName() == "shuttle") setStatus(SUPPLYING);
+            else {
+                if (routeQue.size() == 1) {
+                    status = DOCKED;
+                }
+                routeQue.pop();
+            }
+        } else {
+            if (routeQue.size() == 1) {
+                setStatus(STOPPED);
+            }
+            routeQue.pop();
+        }
         return time;
     }
     return 0;
@@ -117,7 +133,6 @@ void Spaceship::destination(const shared_ptr<SpaceStation> &dest) {
 }
 
 void Spaceship::course(float angle_) {
-
     while (!routeQue.empty()) routeQue.pop();
     angle = angle_;
     isCour = true;
@@ -134,7 +149,17 @@ bool Spaceship::isCourse() const {
 }
 
 void Spaceship::stop() {
-    if(status != DEAD) setStatus(STOPPED);
-    while(!routeQue.empty()) routeQue.pop();
+    if (status != DEAD) setStatus(STOPPED);
+    while (!routeQue.empty()) routeQue.pop();
+}
+
+void Spaceship::go(float restTime) {
+    while (status != STOPPED && status != DEAD && status != DOCKED && restTime > 0) {
+        switch (getStatus()) {
+            case MOVING:
+                restTime = moving(restTime);
+                break;
+        }
+    }
 }
 

@@ -43,7 +43,7 @@ public:
 
     string getFullStatus() const;
 
-    virtual void go(float restTime) = 0;
+    virtual void go(float restTime);
 
     virtual void destination(const shared_ptr<SpaceStation>& dest);
 

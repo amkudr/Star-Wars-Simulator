@@ -1,5 +1,3 @@
-//
-
 #ifndef HWFINAL_FALCON_H
 #define HWFINAL_FALCON_H
 
@@ -25,8 +23,6 @@ public:
     string getClassName() const override;
 
     void setSpeed(float speed_) ;
-
-    void go(float restTime) override;
 
     void dead();
 

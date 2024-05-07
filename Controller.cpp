@@ -48,24 +48,25 @@ void Controller::run(int argc, char **argv) {
     model->addDestroyer("Putin", "Huilo", 10, 20);
     model->destination("Suuuuu","Facility729D");
 
-//    cout << model->view();
-//    cout << model->status();
+    cout << model->view();
+    cout << model->status();
     model->start_supply("GX", "Yavin", "DS");
     model->start_supply("GX", "Yavin", "DS");
     model->start_supply("GX", "Facility729D", "DS");
     model->start_supply("GX", "Facility729D", "DS");
     model->position("NAVALNIY", 30,20);
-    model->destination("Putin", "DS");
+//    model->destination("Putin", "DS");
+    model->course("Putin", 0);
     model->go();
     model->go();
     model->shoot("Putin", 30,20);
 
-    for (int i = 0; i < 450; i++) {
-        if(i == 4){
+    for (int i = 0; i < 600; i++) {
+        if(i == 20){
             continue;
         }
         model->go();
-        cout<<i<< endl;
+//        cout<<i<< endl;
         if (i % 5 == 0) {
             cout << model->view();
             cout << model->status();

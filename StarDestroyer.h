@@ -10,7 +10,6 @@ public:
     StarDestroyer(string name, string pilot, float x, float y): Spaceship(std::move(name), std::move(pilot), x, y) {}
     float getSpeed() const override;
     string getClassName() const override;
-    void go(float restTime) override;
     float shoot(float p_x, float p_y);
 private:
     float speed = 2;

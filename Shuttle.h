@@ -21,7 +21,6 @@ public:
 private:
     int pUnit = 10;
     float speed = 0.5;
-    const string className = "Shuttle";
     int cargo = 0;
     float leftTime = -1;
 
