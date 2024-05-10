@@ -15,8 +15,13 @@ public:
     void go(float restTime) override;
     void start_supply(const shared_ptr<SpaceStation>& sourSt_, const shared_ptr<SpaceStation>& ds_);
     string getClassName() const override;
-
+    int getPUnit() const;
     float getSpeed() const override;
+
+    void setPUnit(int pUnit_);
+
+    void setCargo(int cargo_);
+
 
 private:
     int pUnit = 10;

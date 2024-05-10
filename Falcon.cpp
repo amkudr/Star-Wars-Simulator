@@ -28,3 +28,11 @@ void Falcon::dead() {
     setStatus(DEAD);
 }
 
+int Falcon::getPUnit() const {
+    return pUnit;
+}
+
+void Falcon::setPUnit(int pUnit_) {
+    Falcon::pUnit = pUnit_;
+}
+

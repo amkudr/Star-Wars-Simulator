@@ -31,6 +31,10 @@ public:
 
     float getY() const;
 
+    void setX(float x_);
+
+    void setY(float y_);
+
     float getAngle() const;
 
     bool isCourse() const;

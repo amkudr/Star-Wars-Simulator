@@ -26,6 +26,7 @@ public:
     void position(const string &name, float x, float y, float speed = 0);
     void course(const string &name, float angle, float speed = 0);
     void shoot(const string& name, float x, float y);
+    void attack(const string& falconName, const string& shuttleName);
     void stop(const string& name);
     void go(); //Update all objects in one hour
     string view();

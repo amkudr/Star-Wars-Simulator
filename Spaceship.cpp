@@ -164,3 +164,11 @@ void Spaceship::go(float restTime) {
     }
 }
 
+void Spaceship::setX(float x_) {
+    Spaceship::x = x_;
+}
+
+void Spaceship::setY(float y_) {
+    Spaceship::y = y_;
+}
+

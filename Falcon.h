@@ -22,6 +22,10 @@ public:
 
     string getClassName() const override;
 
+    int getPUnit() const;
+
+    void setPUnit(int pUnit_);
+
     void setSpeed(float speed_) ;
 
     void dead();
@@ -29,6 +33,7 @@ public:
 
 private:
     float speed = 3;
+    int pUnit = 5;
 };
 
 

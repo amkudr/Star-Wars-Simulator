@@ -259,3 +259,48 @@ void Model::addDestroyer(const string &name, const string& pilot, float x, float
     viewObj->setObject(name, x, y);
 }
 
+void Model::attack(const string &falconName, const string &shuttleName) {
+    //Check if exist
+    shared_ptr<Falcon> falcon = nullptr;
+    shared_ptr<Shuttle> shuttle = nullptr;
+    for (auto &f: falcons) {
+        if (f->getName() == falconName) {
+            falcon = f;
+        }
+    }
+    if (falcon == nullptr) return;
+    for (auto &s: shuttles) {
+        if (s->getName() == shuttleName) {
+            shuttle = s;
+        }
+    }
+    if(shuttle == nullptr) return;
+    bool isSuccess = true; //Check if attack success
+    // Check if less 100km
+    float dist = falcon->findDist(shuttle->getX(), shuttle->getY());
+    if (dist > 1) isSuccess = false;
+    //Check if falcon have more pUnit
+    if (falcon->getPUnit() < shuttle->getPUnit()) isSuccess = false;
+    //Check if there are no bomber in radius 250 km
+    if(isSuccess) {
+        for (auto &b: bombers) {
+            if (shuttle->findDist(b->getX(), b->getY()) < 2.5) isSuccess = false;
+            if(!isSuccess) break;
+        }
+    }
+
+    if (isSuccess) {
+        shuttle->setPUnit(shuttle->getPUnit() - 1);
+        shuttle->setCargo(0);
+        shuttle->stop();
+        if(falcon->getPUnit() < 20) falcon->setPUnit(falcon->getPUnit() + 1);
+    }
+    else{
+        falcon->setPUnit(falcon->getPUnit() - 1);
+        if(falcon->getPUnit() == 0) falcon->dead();
+    }
+    falcon->setX(shuttle->getX());
+    falcon->setY(shuttle->getY());
+    falcon->stop();
+}
+
