@@ -2,13 +2,15 @@
 #define HWFINAL_MIDSHIPMAN_H
 
 
+#include <utility>
+
 #include "ImperialAgent.h"
 
 class Midshipman : public ImperialAgent {
 
 public:
-    Midshipman(const string& name) : ImperialAgent(name) {}
-
+    explicit Midshipman(string name) : ImperialAgent(std::move(name)) {}
+    int getClass() override { return MIDSHIPMAN; }
 };
 
 

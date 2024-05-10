@@ -145,6 +145,12 @@ build CMakeFiles/HWFinal.dir/Falcon.cpp.obj: CXX_COMPILER__HWFinal_unscanned_Deb
   OBJECT_DIR = CMakeFiles\HWFinal.dir
   OBJECT_FILE_DIR = CMakeFiles\HWFinal.dir
 
+build CMakeFiles/HWFinal.dir/AdmImperalFactory.cpp.obj: CXX_COMPILER__HWFinal_unscanned_Debug C$:/Users/Anton/Documents/C$ lab/C++/ATOOP/HWFinal/AdmImperalFactory.cpp || cmake_object_order_depends_target_HWFinal
+  DEP_FILE = CMakeFiles\HWFinal.dir\AdmImperalFactory.cpp.obj.d
+  FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\HWFinal.dir
+  OBJECT_FILE_DIR = CMakeFiles\HWFinal.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target HWFinal
@@ -153,7 +159,7 @@ build CMakeFiles/HWFinal.dir/Falcon.cpp.obj: CXX_COMPILER__HWFinal_unscanned_Deb
 #############################################
 # Link the executable HWFinal.exe
 
-build HWFinal.exe: CXX_EXECUTABLE_LINKER__HWFinal_Debug CMakeFiles/HWFinal.dir/main.cpp.obj CMakeFiles/HWFinal.dir/Controller.cpp.obj CMakeFiles/HWFinal.dir/Model.cpp.obj CMakeFiles/HWFinal.dir/SpaceStation.cpp.obj CMakeFiles/HWFinal.dir/View.cpp.obj CMakeFiles/HWFinal.dir/Shuttle.cpp.obj CMakeFiles/HWFinal.dir/ImperialAgent.cpp.obj CMakeFiles/HWFinal.dir/Midshipman.cpp.obj CMakeFiles/HWFinal.dir/Commander.cpp.obj CMakeFiles/HWFinal.dir/Admiral.cpp.obj CMakeFiles/HWFinal.dir/ImperialFactory.cpp.obj CMakeFiles/HWFinal.dir/MidImperialFactory.cpp.obj CMakeFiles/HWFinal.dir/Spaceship.cpp.obj CMakeFiles/HWFinal.dir/TIEBomber.cpp.obj CMakeFiles/HWFinal.dir/StarDestroyer.cpp.obj CMakeFiles/HWFinal.dir/Falcon.cpp.obj
+build HWFinal.exe: CXX_EXECUTABLE_LINKER__HWFinal_Debug CMakeFiles/HWFinal.dir/main.cpp.obj CMakeFiles/HWFinal.dir/Controller.cpp.obj CMakeFiles/HWFinal.dir/Model.cpp.obj CMakeFiles/HWFinal.dir/SpaceStation.cpp.obj CMakeFiles/HWFinal.dir/View.cpp.obj CMakeFiles/HWFinal.dir/Shuttle.cpp.obj CMakeFiles/HWFinal.dir/ImperialAgent.cpp.obj CMakeFiles/HWFinal.dir/Midshipman.cpp.obj CMakeFiles/HWFinal.dir/Commander.cpp.obj CMakeFiles/HWFinal.dir/Admiral.cpp.obj CMakeFiles/HWFinal.dir/ImperialFactory.cpp.obj CMakeFiles/HWFinal.dir/MidImperialFactory.cpp.obj CMakeFiles/HWFinal.dir/Spaceship.cpp.obj CMakeFiles/HWFinal.dir/TIEBomber.cpp.obj CMakeFiles/HWFinal.dir/StarDestroyer.cpp.obj CMakeFiles/HWFinal.dir/Falcon.cpp.obj CMakeFiles/HWFinal.dir/AdmImperalFactory.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\HWFinal.dir

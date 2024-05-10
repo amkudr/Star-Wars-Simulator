@@ -54,7 +54,7 @@ void Controller::run(int argc, char **argv) {
     model->start_supply("GX", "Yavin", "DS");
     model->start_supply("GX", "Facility729D", "DS");
     model->start_supply("GX", "Facility729D", "DS");
-    model->position("NAVALNIY", 30,20);
+    model->position("NAVALNIY", 30, 20);
 //    model->destination("Putin", "DS");
     model->course("Putin", 0);
     model->go();

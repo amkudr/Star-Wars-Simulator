@@ -5,19 +5,14 @@
 
 #include "ImperialFactory.h"
 #include "Midshipman.h"
-#include "Spaceship.h"
 
 class MidImperialFactory : public ImperialFactory {
-    ImperialAgent *createAgent(const string &name) {
+public:
+
+    ImperialAgent * createAgent(string name) override {
         return new Midshipman(name);
     }
 
-//    Spaceship *createSpaceShip(const string &name, const string &pilot, float x, float y) {
-//        return new Spaceship(name, pilot, x, y);
-//    }
-
-
 };
-
 
 #endif //HWFINAL_MIDIMPERIALFACTORY_H

@@ -3,10 +3,15 @@
 #include <utility>
 
 #include "string"
+
+enum {MIDSHIPMAN, COMMANDER, ADMIRAL};
+
 using namespace std;
 class ImperialAgent {
 public:
-    ImperialAgent(string  name) : name(std::move(name)) {}
+    explicit ImperialAgent(string  name) : name(std::move(name)) {}
+    virtual int getClass() = 0;
+
 private:
     string name;
 

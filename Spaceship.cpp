@@ -151,6 +151,7 @@ bool Spaceship::isCourse() const {
 void Spaceship::stop() {
     if (status != DEAD) setStatus(STOPPED);
     while (!routeQue.empty()) routeQue.pop();
+    isCour = false;
 }
 
 void Spaceship::go(float restTime) {

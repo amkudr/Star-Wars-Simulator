@@ -33,4 +33,7 @@ add_executable(HWFinal main.cpp
         StarDestroyer.cpp
         StarDestroyer.h
         Falcon.cpp
-        Falcon.h)
+        Falcon.h
+        ComImperalFactory.h
+        AdmImperalFactory.cpp
+        AdmImperalFactory.h)

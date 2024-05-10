@@ -23,8 +23,8 @@ public:
 //    int getShStatus(const string& name);
     void start_supply(const string& name, const string& sourSt, const string& destSt);
     void destination(const string& name, const string& destSt);
-    void position(const string& name, float x, float y);
-    void course(const string& name, float angle);
+    void position(const string &name, float x, float y, float speed = 0);
+    void course(const string &name, float angle, float speed = 0);
     void shoot(const string& name, float x, float y);
     void stop(const string& name);
     void go(); //Update all objects in one hour

@@ -87,7 +87,6 @@ void Model::go() {
     for (auto &shuttle: shuttles) {
         shuttle->go(1);
         viewObj->setObject(shuttle->getName(), shuttle->getX(), shuttle->getY());
-//        std::cout << shuttle->getName() << "X = " << shuttle->getX()<<" Y = " << shuttle->getY() << std::endl;
     }
     for (auto &bomber: bombers) {
         bomber->go(1);
@@ -99,7 +98,7 @@ void Model::go() {
     for (auto &destroyer: destroyers) {
         destroyer->go(1);
     }
-    for (auto &falcon: falcons) {
+    for (auto &falcon: falcons) { //Rocket attack
         float passTime = 0;
         float rocket_time;
         for (auto &rocket: fresh_rockets) {
@@ -166,7 +165,7 @@ void Model::destination(const string &name, const string &destSt) {
 
 }
 
-void Model::position(const string &name, float x, float y) {
+void Model::position(const string &name, float x, float y, float speed) {
 
     for (auto &bomber: bombers) {
         if (bomber->getName() == name) {
@@ -182,13 +181,13 @@ void Model::position(const string &name, float x, float y) {
     }
     for (auto &falcon: falcons) {
         if (falcon->getName() == name) {
-            falcon->position(x, y, 7);
+            falcon->position(x, y, speed);
             return;
         }
     }
 }
 
-void Model::course(const string &name, float angle) {
+void Model::course(const string &name, float angle, float speed) {
     for (auto &bomber: bombers) {
         if (bomber->getName() == name) {
             bomber->course(angle);
@@ -198,6 +197,12 @@ void Model::course(const string &name, float angle) {
     for (auto &destroyer: destroyers) {
         if (destroyer->getName() == name) {
             destroyer->course(angle);
+            return;
+        }
+    }
+    for (auto &falcon: falcons) {
+        if (falcon->getName() == name) {
+            falcon->course(angle, speed);
             return;
         }
     }
