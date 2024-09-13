@@ -6,7 +6,8 @@
 #include "string"
 using namespace std;
 class ImperialFactory {
-    virtual ImperialAgent* createAgent(string name) = 0;
+public:
+    virtual shared_ptr<ImperialAgent> createAgent(string name) = 0;
 };
 
 

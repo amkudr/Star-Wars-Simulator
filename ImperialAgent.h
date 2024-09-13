@@ -12,6 +12,10 @@ public:
     explicit ImperialAgent(string  name) : name(std::move(name)) {}
     virtual int getClass() = 0;
 
+    const string &getName() const {
+        return name;
+    }
+
 private:
     string name;
 

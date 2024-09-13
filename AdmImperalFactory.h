@@ -4,9 +4,8 @@
 #include "ImperialFactory.h"
 
 class AdmImperalFactory: public ImperialFactory {
-
-    ImperialAgent * createAgent(string name) override {
-        return new Admiral(name);
+    shared_ptr<ImperialAgent> createAgent(string name) override {
+        return make_shared<Admiral>(name);
     }
 };
 

@@ -14,17 +14,11 @@ add_executable(HWFinal main.cpp
         View.h
         Shuttle.cpp
         Shuttle.h
-        ImperialAgent.cpp
         ImperialAgent.h
-        Midshipman.cpp
         Midshipman.h
-        Commander.cpp
         Commander.h
-        Admiral.cpp
         Admiral.h
-        ImperialFactory.cpp
         ImperialFactory.h
-        MidImperialFactory.cpp
         MidImperialFactory.h
         Spaceship.cpp
         Spaceship.h
@@ -35,5 +29,4 @@ add_executable(HWFinal main.cpp
         Falcon.cpp
         Falcon.h
         ComImperalFactory.h
-        AdmImperalFactory.cpp
         AdmImperalFactory.h)

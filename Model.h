@@ -9,6 +9,9 @@
 #include "TIEBomber.h"
 #include "StarDestroyer.h"
 #include "Falcon.h"
+#include "MidImperialFactory.h"
+#include "ComImperalFactory.h"
+#include "AdmImperalFactory.h"
 
 using namespace std;
 
@@ -20,7 +23,6 @@ public:
     void addBomber(const string &name, const string &pilot, float x, float y);
     void addFalcon(const string &name, float x, float y);
     void addDestroyer(const string &name, const string& pilot, float x, float y);
-//    int getShStatus(const string& name);
     void start_supply(const string& name, const string& sourSt, const string& destSt);
     void destination(const string& name, const string& destSt);
     void position(const string &name, float x, float y, float speed = 0);
@@ -28,13 +30,22 @@ public:
     void shoot(const string& name, float x, float y);
     void attack(const string& falconName, const string& shuttleName);
     void stop(const string& name);
+    void addImpSoldier(const string &name, int type);
     void go(); //Update all objects in one hour
-    string view();
     string status();
 
+    //View functions
+    string view();
+    void setDefaultView();
+    void size(int size);
+    void zoom(float scale);
+    void pan(float x, float y);
+
 private:
+    int checkIfAgentExist(const string& name); //Return his class
     Model();
     static shared_ptr<Model> instance;
+    vector<shared_ptr<ImperialAgent>> imperialAgents;
     shared_ptr<vector<shared_ptr<SpaceStation>>> stations_ptr = make_shared<vector<shared_ptr<SpaceStation>>>();
     vector<shared_ptr<Shuttle>> shuttles;
     vector<shared_ptr<TIEBomber>> bombers;

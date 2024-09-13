@@ -5,8 +5,8 @@
 #include "ImperialFactory.h"
 
 class ComImperialFactory : public ImperialFactory {
-    ImperialAgent * createAgent(string name) override {
-        return new Commander(name);
+    shared_ptr<ImperialAgent> createAgent(string name) override {
+        return make_shared<Commander>(name);
     }
-}
+};
 #endif //HWFINAL_COMIMPERALFACTORY_H

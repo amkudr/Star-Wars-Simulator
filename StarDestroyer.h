@@ -12,6 +12,7 @@ public:
     string getClassName() const override;
     float shoot(float p_x, float p_y);
 private:
+    int getPUnit() const override { return 0; }
     float speed = 2;
 };
 

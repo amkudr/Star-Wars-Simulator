@@ -11,11 +11,21 @@ using namespace std;
 class View {
 public:
     View();
+
     string show();
-    void setObject(const string& name, float x, float y);
-//    void setZoom(int scale);
-//    void setPan(float x, float y);
-//
+
+    void setObject(const string &name, float x, float y);
+
+    void setDefault();
+
+    void setSize(int size_);
+
+    void setScale(float scale_);
+
+    void setPanX(float panX);
+
+    void setPanY(float panY_);
+
 
 private:
     string field;

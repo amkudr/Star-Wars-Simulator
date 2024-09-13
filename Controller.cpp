@@ -42,103 +42,142 @@ void Controller::run(int argc, char **argv) {
     }
     string command;
     int time = 0;
-    model->addShuttle("GX", "Peter", 0, 0);
-    model->addBomber("Suuuuu", "Pidr", 15, 30);
-    model->addFalcon("NAVALNIY", 5,5);
-    model->addDestroyer("Putin", "Huilo", 10, 20);
-    model->destination("Suuuuu","Facility729D");
-
-    cout << model->view();
-    cout << model->status();
-    model->start_supply("GX", "Yavin", "DS");
-    model->start_supply("GX", "Yavin", "DS");
-    model->start_supply("GX", "Facility729D", "DS");
-    model->start_supply("GX", "Facility729D", "DS");
-    model->position("NAVALNIY", 30, 20);
-//    model->destination("Putin", "DS");
-    model->course("Putin", 0);
-    model->go();
-    model->go();
-    model->shoot("Putin", 30,20);
-
-    for (int i = 0; i < 600; i++) {
-        if(i == 20){
-            continue;
-        }
-        model->go();
-//        cout<<i<< endl;
-        if (i % 5 == 0) {
-            cout << model->view();
-            cout << model->status();
-        }
-
-
-//        if (i == 20) {
-//
-//            model->go();
-//            cout << "Hop\n";
-//            cout << model->status();
-//            cout << model->view();
-//            cout << "Hop\n";
-//
-//        }
-
-
-
-//        if (i%5 == 0){
-//            cout<<model->status();
-////            cout<<model->view();
-//        }
-    }
-    cout << model->status();
-
-    cout << model->view();
-
-    return;
     while (true) {
         cout << "Time: " << time << " Enter command :";
         cin >> command;
-        if (command == "exit") {
-            break;
-        }
-        if (command == "show") {
-            cout << model->view();
-        } else if (command == "create") {
-            string type;
-            cin >> type;
-            if (type == "shuttle") {
-                string line;
-                getline(cin, line);
-                string word;
-                vector<string> inputVec;
-                istringstream iss(line);
-                while (iss >> word) {
-                    inputVec.push_back(word);
+        try {
+            if (command == "exit") {
+                break;
+            } else if (command == "create") {
+                createObject();
+            } else if (command == "go") {
+                model->go();
+                time++;
+            } else if (command == "status") {
+                cout << model->status();
+            } else if (command == "default")
+                model->setDefaultView();
+            else if (command == "size") {
+                int size;
+                cin >> size;
+                if (cin.fail()) {
+                    cin.clear();
+                    throw invalid_argument("Expected an Integer.");
                 }
-                if (inputVec.size() == 4) {
-                    float x = stof(inputVec[2].substr(1));
-                    float y = stof(inputVec[3].substr(0, inputVec[2].size() - 1));
-                    model->addShuttle(inputVec[0], inputVec[1], x, y);
-                }
-            }
-        } else {
-            string line;
-            getline(cin, line);
-            string word;
-            vector<string> inputVec;
-            istringstream iss(line);
-            while (iss >> word) {
-                inputVec.push_back(word);
-            }
-//            if (model->getShStatus(command) != NOTEXIST) {
-//                if (inputVec[0] == "start_supply" && inputVec.size() == 3) {
-//                }
-//            } else cout << "Wrong command" << endl;
 
+                model->size(size);
+
+            } else if (command == "show") {
+                cout << model->view();
+            } else if (command == "scale") {
+                float scale;
+                cin >> scale;
+                if (cin.fail()) {
+                    cin.clear();
+                    throw invalid_argument("Expected a double.");
+                }
+                model->zoom(scale);
+            } else if (command == "pan") {
+                float x, y;
+                cin >> x >> y;
+                if (cin.fail()) {
+                    cin.clear();
+                    throw invalid_argument("Expected a double.");
+                }
+                model->pan(x, y);
+            } else {
+                shipCommands(command);
+            }
+        }
+        catch (invalid_argument &e) {
+            cerr << e.what() << endl;
         }
     }
+
 }
 
 Controller::Controller() {
     model = Model::getInstance();
 }
+
+void Controller::createObject() {
+    string type, pilot;
+    cin >> type;
+    if (type == "admiral") {
+        cin >> pilot;
+        model->addImpSoldier(pilot, ADMIRAL);
+    } else if (type == "commander") {
+        cin >> pilot;
+        model->addImpSoldier(pilot, COMMANDER);
+    } else if (type == "midshipman") {
+        cin >> pilot;
+        model->addImpSoldier(pilot, MIDSHIPMAN);
+    } else {
+        string line;
+        getline(cin, line);
+        string word;
+        vector<string> inputVec;
+        istringstream iss(line);
+        while (iss >> word) {
+            inputVec.push_back(word);
+        }
+        if (inputVec.size() == 4) {
+            if (inputVec[0].size() > 15) throw invalid_argument("Too long name " + inputVec[0]);
+            float x = stof(inputVec[2].substr(1));
+            float y = stof(inputVec[3].substr(0, inputVec[2].size() - 1));
+            if (type == "shuttle") model->addShuttle(inputVec[0], inputVec[1], x, y);
+            else if (type == "destroyer") model->addDestroyer(inputVec[0], inputVec[1], x, y);
+            else if (type == "bomber") model->addBomber(inputVec[0], inputVec[1], x, y);
+            else throw invalid_argument("Wrong type " + type);
+        } else if (inputVec.size() == 3) {
+            if (inputVec[0].size() > 15) throw invalid_argument("Too long name " + inputVec[0]);
+            float x = stof(inputVec[1].substr(1));
+            float y = stof(inputVec[2].substr(0, inputVec[2].size() - 1));
+            if (type == "falcon") model->addFalcon(inputVec[0], x, y);
+            else throw invalid_argument("Wrong type " + type);
+        } else throw invalid_argument("Not enough arguments");
+    }
+}
+
+void Controller::shipCommands(const string &name) {
+    string line;
+    getline(cin, line);
+    string word;
+    vector<string> inputVec;
+    istringstream iss(line);
+    while (iss >> word) {
+        inputVec.push_back(word);
+    }
+    if (inputVec.size() == 1 && inputVec[0] == "stop") model->stop(name);
+    else if (inputVec.size() == 2) {
+        if (inputVec[0] == "attack") model->attack(name, inputVec[1]);
+        else if (inputVec[0] == "course") {
+            float angle = stof(inputVec[1]);
+            model->course(name, angle);
+        } else if (inputVec[0] == "destination") {
+            model->destination(name, inputVec[1]);
+        }
+    } else if (inputVec.size() == 3) {
+        if (inputVec[0] == "shoot") {
+            float x = stof(inputVec[1]);
+            float y = stof(inputVec[2]);
+            model->shoot(name, x, y);
+        } else if (inputVec[0] == "start_supply") model->start_supply(name, inputVec[1], inputVec[2]);
+        else if (inputVec[0] == "position") {
+            float x = stof(inputVec[1]);
+            float y = stof(inputVec[2]);
+            model->position(name, x, y);
+        } else if (inputVec[0] == "course") {
+            float angle = stof(inputVec[1]);
+            float speed = stof(inputVec[2]);
+            model->course(name, angle, speed);
+        }
+    } else if (inputVec.size() == 4 && inputVec[0] == "position") {
+        float x = stof(inputVec[1]);
+        float y = stof(inputVec[2]);
+        float speed = stof(inputVec[3]);
+        model->position(name, x, y, speed);
+    } else throw invalid_argument("Wrong command for " + name);
+
+}
+

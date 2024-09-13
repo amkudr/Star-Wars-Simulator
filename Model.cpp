@@ -2,7 +2,6 @@
 #include <sstream>
 #include <algorithm>
 #include "Model.h"
-#include "cmath"
 
 shared_ptr<Model> Model::instance = nullptr;
 
@@ -32,18 +31,10 @@ string Model::view() {
 }
 
 void Model::addShuttle(const string &name, const string &pilot, float x, float y) {
+    if (checkIfAgentExist(pilot) != MIDSHIPMAN) throw invalid_argument("Agent does not exist! " + pilot);
     shuttles.emplace_back(make_shared<Shuttle>(name, pilot, x, y));
     viewObj->setObject(name, x, y);
 }
-
-//int Model::getShStatus(const string &name) {
-//    for (auto &shuttle : shuttles) {
-//        if (shuttle->getName() == name) {
-//            return shuttle->getStatus();
-//        }
-//    }
-//    return NOTEXIST;
-//}
 
 void Model::start_supply(const string &name, const string &sourSt, const string &destSt) {
     shared_ptr<SpaceStation> sourStPtr = nullptr;
@@ -68,7 +59,7 @@ void Model::start_supply(const string &name, const string &sourSt, const string 
 void Model::go() {
     vector<pair<pair<float, float>, float>> fresh_rockets;
 
-    for (auto it = rockets.begin(); it != rockets.end();) {
+    for (auto it = rockets.begin(); it != rockets.end();) { //Update rocket and get rocket that will explore now
         if (it->second <= 1) {
             fresh_rockets.push_back(*it);
             it = rockets.erase(it);
@@ -97,6 +88,7 @@ void Model::go() {
     }
     for (auto &destroyer: destroyers) {
         destroyer->go(1);
+        viewObj->setObject(destroyer->getName(), destroyer->getX(), destroyer->getY());
     }
     for (auto &falcon: falcons) { //Rocket attack
         float passTime = 0;
@@ -110,7 +102,9 @@ void Model::go() {
                 break;
             }
         }
-        falcon->go(1-passTime);
+        falcon->go(1 - passTime);
+        viewObj->setObject(falcon->getName(), falcon->getX(), falcon->getY());
+
     }
 }
 
@@ -128,13 +122,14 @@ string Model::status() {
     for (auto &destroyer: destroyers) {
         os << destroyer->getFullStatus() << std::endl;
     }
-    for(auto &falcon: falcons) {
+    for (auto &falcon: falcons) {
         os << falcon->getFullStatus() << std::endl;
     }
     return os.str();
 }
 
 void Model::addBomber(const string &name, const string &pilot, float x, float y) {
+    if (checkIfAgentExist(pilot) != COMMANDER) throw invalid_argument("Agent does not exist! " + pilot);
     bombers.emplace_back(make_shared<TIEBomber>(name, pilot, x, y, stations_ptr));
     viewObj->setObject(name, x, y);
 }
@@ -249,12 +244,14 @@ void Model::stop(const string &name) {
 }
 
 void Model::addFalcon(const string &name, float x, float y) {
+
     falcons.emplace_back(make_shared<Falcon>(name, x, y));
     viewObj->setObject(name, x, y);
 
 }
 
-void Model::addDestroyer(const string &name, const string& pilot, float x, float y) {
+void Model::addDestroyer(const string &name, const string &pilot, float x, float y) {
+    if (checkIfAgentExist(pilot) != ADMIRAL) throw invalid_argument("Admiral " + pilot + " does not exist");
     destroyers.emplace_back(make_shared<StarDestroyer>(name, pilot, x, y));
     viewObj->setObject(name, x, y);
 }
@@ -274,7 +271,7 @@ void Model::attack(const string &falconName, const string &shuttleName) {
             shuttle = s;
         }
     }
-    if(shuttle == nullptr) return;
+    if (shuttle == nullptr) return;
     bool isSuccess = true; //Check if attack success
     // Check if less 100km
     float dist = falcon->findDist(shuttle->getX(), shuttle->getY());
@@ -282,10 +279,10 @@ void Model::attack(const string &falconName, const string &shuttleName) {
     //Check if falcon have more pUnit
     if (falcon->getPUnit() < shuttle->getPUnit()) isSuccess = false;
     //Check if there are no bomber in radius 250 km
-    if(isSuccess) {
+    if (isSuccess) {
         for (auto &b: bombers) {
             if (shuttle->findDist(b->getX(), b->getY()) < 2.5) isSuccess = false;
-            if(!isSuccess) break;
+            if (!isSuccess) break;
         }
     }
 
@@ -293,14 +290,65 @@ void Model::attack(const string &falconName, const string &shuttleName) {
         shuttle->setPUnit(shuttle->getPUnit() - 1);
         shuttle->setCargo(0);
         shuttle->stop();
-        if(falcon->getPUnit() < 20) falcon->setPUnit(falcon->getPUnit() + 1);
-    }
-    else{
+        if (falcon->getPUnit() < 20) falcon->setPUnit(falcon->getPUnit() + 1);
+    } else {
         falcon->setPUnit(falcon->getPUnit() - 1);
-        if(falcon->getPUnit() == 0) falcon->dead();
+        if (falcon->getPUnit() == 0) falcon->dead();
     }
     falcon->setX(shuttle->getX());
     falcon->setY(shuttle->getY());
     falcon->stop();
+}
+
+void Model::addImpSoldier(const string &name, int type) {
+    if (name.size()>15) throw runtime_error("Name too long " + name);
+    unique_ptr<ImperialFactory> impFactory_ptr;
+    switch (type) {
+        case MIDSHIPMAN:
+            impFactory_ptr = unique_ptr<MidImperialFactory>(new MidImperialFactory());
+            break;
+        case COMMANDER:
+            impFactory_ptr = unique_ptr<ComImperialFactory>(new ComImperialFactory());
+            break;
+        case ADMIRAL:
+            impFactory_ptr = unique_ptr<AdmImperalFactory>(new AdmImperalFactory());
+            break;
+
+        default:
+            throw runtime_error("Wrong type");
+
+    }
+    shared_ptr<ImperialAgent> impAgent = impFactory_ptr->createAgent(name);
+    imperialAgents.emplace_back(impAgent);
+}
+
+int Model::checkIfAgentExist(const string &name) {
+    for (auto &imperialAgent: imperialAgents) {
+        if (imperialAgent->getName() == name) {
+            return imperialAgent->getClass();
+        }
+    }
+    return -1;
+}
+
+void Model::setDefaultView() {
+    viewObj->setDefault();
+}
+
+void Model::size(int size) {
+    if (size < 7) throw invalid_argument("New map size is too small.");
+    if (size > 30) throw invalid_argument("New map size is too big.");
+    viewObj->setSize(size);
+
+}
+
+void Model::zoom(float scale) {
+    if (scale<=0) throw invalid_argument("New map scale must be positive.");
+    viewObj->setScale(scale);
+}
+
+void Model::pan(float x, float y) {
+    viewObj->setPanX(x);
+    viewObj->setPanY(y);
 }
 

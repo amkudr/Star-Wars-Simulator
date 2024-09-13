@@ -24,10 +24,6 @@ public:
 
     int getSupNum() const;
 
-    void setX(float x);
-
-    void setY(float y);
-
     void setContNum(int contNum);
 
     float findDist(float p_x, float p_y) const;

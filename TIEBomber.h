@@ -17,10 +17,12 @@ public:
 
     void destination(const shared_ptr<SpaceStation>& dest) override;
 
-//    void findNewDest();
+
 
 private:
     float speed = 1;
+    int getPUnit() const override {return 0;};
+
     shared_ptr<vector<shared_ptr<SpaceStation>>> stations_ptr;
 };
 

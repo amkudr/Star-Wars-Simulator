@@ -77,9 +77,6 @@ float Shuttle::getSpeed() const {
     return speed;
 }
 
-int Shuttle::getPUnit() const {
-    return pUnit;
-}
 
 void Shuttle::setPUnit(int pUnit_) {
     Shuttle::pUnit = pUnit_;
@@ -87,4 +84,8 @@ void Shuttle::setPUnit(int pUnit_) {
 
 void Shuttle::setCargo(int cargo_) {
     Shuttle::cargo = cargo_;
+}
+
+int Shuttle::getPUnit() const {
+    return pUnit;
 }

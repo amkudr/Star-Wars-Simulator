@@ -12,12 +12,15 @@ class Controller {
 public:
     Controller();
 
-    void run(int argc, char *argv[]);
+    static void run(int argc, char *argv[]);
 
 private:
     static shared_ptr<Model> model;
 
     static void createWorld(int argc, char **argv);
+
+    static void createObject();
+    static void shipCommands(const string& name);
 
 };
 

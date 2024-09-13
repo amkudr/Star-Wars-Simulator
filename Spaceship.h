@@ -43,6 +43,8 @@ public:
 
     virtual float getSpeed() const;
 
+    virtual int getPUnit() const = 0;
+
     void setStatus(int status_);
 
     string getFullStatus() const;

@@ -9,8 +9,8 @@
 class MidImperialFactory : public ImperialFactory {
 public:
 
-    ImperialAgent * createAgent(string name) override {
-        return new Midshipman(name);
+    shared_ptr<ImperialAgent> createAgent(string name) override {
+        return make_shared<Midshipman>(name);
     }
 
 };

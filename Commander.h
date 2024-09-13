@@ -7,8 +7,9 @@
 class Commander: public ImperialAgent {
 
 public:
-    explicit Commander(string name) : ImperialAgent(std::move(name)) {}
-    int getClass() override { return COMMANDER; }
+    explicit Commander(string name) : ImperialAgent(std::move(name)) {
+        (void)name;
+    }    int getClass() override { return COMMANDER; }
 
 };
 

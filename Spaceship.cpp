@@ -45,6 +45,7 @@ string Spaceship::getFullStatus() const {
             else if (routeQue.front().second != nullptr) os << "Heading to " << routeQue.front().second->getName();
             else os << "Moving to (" << routeQue.front().first.first << "," << routeQue.front().first.second << ")";
             os << ", speed " << getSpeed() * 1000 << "km/h";
+            if (getClassName() == "falcon" || getClassName() == "shuttle") os << ", Strength:  " << getPUnit();
             break;
         case SUPPLYING:
             os << "Docked";
@@ -75,8 +76,8 @@ float Spaceship::moving(float time) {
     }
     if (isCour) { //If moving on course
         auto radians = float(getAngle() * M_PI / 180.0);
-        x = x + cos(radians) * getSpeed() * time;
-        y = y + sin(radians) * getSpeed() * time;
+        x = x + sin(radians) * getSpeed() * time;
+        y = y + cos(radians) * getSpeed() * time;
         return 0;
     }
     if (routeQue.empty()) {

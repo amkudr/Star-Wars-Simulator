@@ -9,7 +9,7 @@
 class Midshipman : public ImperialAgent {
 
 public:
-    explicit Midshipman(string name) : ImperialAgent(std::move(name)) {}
+    explicit Midshipman(string name) : ImperialAgent(std::move(name)) { (void)name;}
     int getClass() override { return MIDSHIPMAN; }
 };
 

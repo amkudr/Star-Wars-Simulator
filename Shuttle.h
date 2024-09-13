@@ -4,19 +4,21 @@
 #include <utility>
 #include "Spaceship.h"
 
-#define MAX_PUnit 20
-
 using namespace std;
 
-class Shuttle: public Spaceship {
+class Shuttle : public Spaceship {
 public:
-//    Shuttle(string name, string pilot, float x, float y) : name(std::move(name)), pilot(std::move(pilot)), x(x), y(y) {}
-    Shuttle(string name, string pilot, float x, float y): Spaceship(std::move(name), std::move(pilot), x, y) {};
+    Shuttle(string name, string pilot, float x, float y) : Spaceship(std::move(name), std::move(pilot), x, y) {};
+
     void go(float restTime) override;
-    void start_supply(const shared_ptr<SpaceStation>& sourSt_, const shared_ptr<SpaceStation>& ds_);
+
+    void start_supply(const shared_ptr<SpaceStation> &sourSt_, const shared_ptr<SpaceStation> &ds_);
+
     string getClassName() const override;
-    int getPUnit() const;
+
     float getSpeed() const override;
+
+    int getPUnit() const override;
 
     void setPUnit(int pUnit_);
 
@@ -29,11 +31,12 @@ private:
     int cargo = 0;
     float leftTime = -1;
 
-//    float moving(float time) override;
     float supplying(float time);
 
-    void destination(const shared_ptr<SpaceStation>& dest) override {};
+    void destination(const shared_ptr<SpaceStation> &dest) override {};
+
     void course(float angle) override {};
+
     void position(float x, float y) override {};
 };
 

@@ -24,14 +24,6 @@ int SpaceStation::getSupNum() const {
     return SupNum;
 }
 
-void SpaceStation::setX(float x_) {
-    SpaceStation::x = x_;
-}
-
-void SpaceStation::setY(float y_) {
-    SpaceStation::y = y_;
-}
-
 void SpaceStation::setContNum(int contNum) {
     ContNum = contNum;
 }

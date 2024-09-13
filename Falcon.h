@@ -15,14 +15,12 @@ public:
 
     void position(float x_, float y_, float speed_);
 
-//    bool attack(shared_ptr<Shuttle> shuttle);
-
-//    void go(float restTime, float targetX, float targetY, float targTime);
     float getSpeed() const override;
 
     string getClassName() const override;
 
-    int getPUnit() const;
+    int getPUnit() const override;
+
 
     void setPUnit(int pUnit_);
 
