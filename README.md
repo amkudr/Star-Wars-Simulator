@@ -1,4 +1,4 @@
-# Star Wars Simulation (ATOOP Winter 2024 Final Assignment)
+# Star Wars Simulation 
 
 ## Project Overview
 
