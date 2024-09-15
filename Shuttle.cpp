@@ -44,7 +44,6 @@ float Shuttle::supplying(float time) {
             routeQue.pop();
             if (routeQue.empty()) setStatus(DOCKED);
             else setStatus(MOVING);
-            std::cout << " Fuck It was Hard but now i got " << this->pUnit << std::endl;
             return abs(leftTime2);
         } else {
             leftTime = leftTime2;

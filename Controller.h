@@ -9,10 +9,11 @@ using namespace std;
 
 
 class Controller {
+
 public:
     Controller();
 
-    static void run(int argc, char *argv[]);
+    static void run(int argc, char *argv[]); // This function is the main function of the program
 
 private:
     static shared_ptr<Model> model;
@@ -20,7 +21,8 @@ private:
     static void createWorld(int argc, char **argv);
 
     static void createObject();
-    static void shipCommands(const string& name);
+
+    static void shipCommands(const string &name);
 
 };
 

@@ -6,6 +6,11 @@
 shared_ptr<Model> Controller::model = nullptr;
 
 void Controller::createWorld(int argc, char **argv) {
+    /* 1. Read the file name from the command line
+     * 2. Open the file
+     * 3. Read the stations from the file
+     * 4. Create the stations
+     */
     if (argc != 2) {
         throw invalid_argument("Wrong number of arguments!");
     }
@@ -33,6 +38,12 @@ void Controller::createWorld(int argc, char **argv) {
 }
 
 void Controller::run(int argc, char **argv) {
+    /* 1. Create the world
+     * 2. Read commands from the user
+     * 3. Execute the commands
+     * 4. Print the status of the world
+     * 5. Repeat steps 2-4 until the user types "exit"
+     */
     try {
         createWorld(argc, argv);
     }
@@ -101,6 +112,10 @@ Controller::Controller() {
 }
 
 void Controller::createObject() {
+    /* Create 3 type of soldiers and 4 type of ships
+     * 1. Read the type of the object
+     * 2. Create the object
+     */
     string type, pilot;
     cin >> type;
     if (type == "admiral") {
@@ -112,7 +127,7 @@ void Controller::createObject() {
     } else if (type == "midshipman") {
         cin >> pilot;
         model->addImpSoldier(pilot, MIDSHIPMAN);
-    } else {
+    } else { //Create ships
         string line;
         getline(cin, line);
         string word;
@@ -140,6 +155,7 @@ void Controller::createObject() {
 }
 
 void Controller::shipCommands(const string &name) {
+    /* Execute the commands for the ships*/
     string line;
     getline(cin, line);
     string word;

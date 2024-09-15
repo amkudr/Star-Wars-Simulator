@@ -39,14 +39,43 @@ The simulation revolves around the Galactic Empire, managing operations across s
 - **Space Station**: Produces crystals and stores them in tanks.
 - **Fortress Star**: Stores crystals and serves as a target for shuttle transport.
 
-## Key Commands
+## General Commands
 
-- **create**: Creates spaceships and agents (shuttle, bomber, destroyer, falcon).
-- **go**: Advances the simulation by one time step (1 hour).
-- **status**: Displays the current state of all simulation objects.
-- **course**: Sets the course and speed of a spaceship.
-- **destination**: Sets a destination for a spaceship.
-- **start_supply**: Commands shuttles to begin transporting crystals between stations and fortresses.
+- **stop**  
+  Cancels the current movement and stops the ship.
+
+- **course [angle]**  
+  Sets the direction of flight based on an angle in degrees and updates the status to "Moving."
+
+- **position [coordinates]**  
+  Sets the destination coordinates and updates the ship’s status to "Moving to `<destination position>`."
+
+- **status**  
+  Displays the current status of the ship, including name, position, heading, and speed.
+
+## Shuttle Commands
+
+- **start_supply [source station] [destination fortress]**  
+  The shuttle picks up crystals from a station and transports them to a fortress. The shuttle flies between them for one hour and will unload crystals at the destination.
+
+## Bomber Commands
+
+- **destination [target site]**  
+  The bomber flies to the nearest unvisited site. After visiting all sites, it returns to the first one it visited.
+
+## Destroyer Commands
+
+- **shoot [coordinates]**  
+  Fires a missile at the target coordinates. If the missile hits a smuggler’s ship (Millennium Falcon), it transitions to a "Dead" state.
+
+## Falcon Commands
+
+- **attack [shuttle]**  
+  Targets an imperial shuttle within a 100km radius for an attack. If successful, the shuttle transitions to "Stopped," and its crystals are stolen.
+
+- **course/position [angle/coordinates] [speed]**  
+  Similar to the general command, but the speed is also provided after the angle or coordinates.
+
 
 ## How to Run
 

@@ -7,6 +7,7 @@
 #include "Midshipman.h"
 
 class MidImperialFactory : public ImperialFactory {
+    /* This class is an abstract factory that creates a Midshipman object */
 public:
 
     shared_ptr<ImperialAgent> createAgent(string name) override {

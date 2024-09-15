@@ -14,7 +14,6 @@ shared_ptr<Model> Model::getInstance() {
 }
 
 Model::Model() {
-//        stations_ptr = make_shared<vector<shared_ptr<SpaceStation>>()>;
     viewObj = unique_ptr<View>(new View());
     dest = unique_ptr<SpaceStation>(new SpaceStation("DS", 40, 10, 100000, 0));
     addStation("DS", 40, 10, 100000, 0);
@@ -257,6 +256,7 @@ void Model::addDestroyer(const string &name, const string &pilot, float x, float
 }
 
 void Model::attack(const string &falconName, const string &shuttleName) {
+    /* Attack shuttle with falcon */
     //Check if exist
     shared_ptr<Falcon> falcon = nullptr;
     shared_ptr<Shuttle> shuttle = nullptr;
@@ -336,6 +336,7 @@ void Model::setDefaultView() {
 }
 
 void Model::size(int size) {
+    /* change the size of the map */
     if (size < 7) throw invalid_argument("New map size is too small.");
     if (size > 30) throw invalid_argument("New map size is too big.");
     viewObj->setSize(size);
